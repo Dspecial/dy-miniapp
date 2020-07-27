@@ -1,12 +1,12 @@
 <view class="page-container p-3">
-  <view class="search d-flex align-items-center pt-1 pb-1 pl-3 pr-3 fs_15">
+  <view class="search d-flex align-items-center pt-1 pb-1 pl-3 pr-3 fs_14">
     <icon size="20" color="#000" type="search" class="mr-2"/>
     <input placeholder="请输入您想测试的关键词" bindconfirm="onconfirm" class="w-100"></input>
   </view>
 
   <view class="mt-3 text-center default_page w-100" tt:if="{{isDefault}}">
     <image src="{{defaultImg}}" mode="aspectFit" />
-    <view class="opacity-60 mt-3">暂无内容</view>
+    <view class="opacity-60 mt-3 fs_14">暂无内容</view>
   </view>
 
   <view class="mt-3 page-section dy_recommend" tt:else>

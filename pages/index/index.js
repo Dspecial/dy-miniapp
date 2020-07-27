@@ -1,5 +1,5 @@
-const app = getApp()
-
+const app = getApp();
+import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
     background: [
@@ -126,7 +126,7 @@ Page({
     ],
   },
   onLoad: function () {
-    console.log('首页')
+    this.getindexCate()
   },
   // 下拉刷新
   onPullDownRefresh: function () {
@@ -155,6 +155,25 @@ Page({
       this.stopPullDownRefresh();
     }, 3000);
   },
+  
+  // 请求测试分类接口
+  getindexCate(){
+    http.indexCateApi({ // 调用接口，传入参数
+      data: {
+        xiaochengxu_id:"1",
+      },
+      success: res => {
+        console.log('接口请求成功', res)
+        this.setData({
+          //indexCate: res.data
+        })
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+  
   // 去搜索页面
   indexSearch: function(){
     tt.navigateTo({
