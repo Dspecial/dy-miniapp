@@ -1,0 +1,53 @@
+.index_swiper swiper-item{
+  width:750rpx;
+  height:600rpx;
+}
+.index_swiper swiper-item image{
+  width:100%;
+  height: 100%;
+  border-radius:8rpx;
+}
+
+.index_cate image{
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.index_chosen{
+  background:rgba(231,241,255,1);
+  border-radius:8rpx;
+}
+.index_chosen .right_search button{
+  background:rgba(255,255,255,1);
+  border-radius:36rpx;
+  color:#333333;
+}
+.index_chosen .right_search button:after{
+  border:0
+}
+.scroll-view-wrap{
+  white-space: nowrap;
+}
+.chosen_card{
+  background:#fff;
+  margin-right:30rpx;
+  border-radius:14rpx;
+  width: 75%; 
+  display: inline-block;
+}
+.chosen_card image.item_img{
+  width: 160rpx;
+  height: 120rpx;
+  border-radius:10rpx;
+}
+.hot_icon{
+  width:24rpx;
+  height: 24rpx;
+  color: #FF323E;
+}
+.chosen_card_right{
+  width:60%;
+}
+.chosen_card >view.mb-3:last-child{
+  margin-bottom:0!important;
+}

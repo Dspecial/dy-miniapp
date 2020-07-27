@@ -1,0 +1,53 @@
+#app{
+  height: 100%;
+}
+.category-container{
+  min-height: 100%;
+  height: 100%;
+}
+.tab-left{
+  background-color: #F5F5F5;
+  min-height: 100%;
+  width:20%;
+}
+.tab_nav {
+  height: 100rpx;
+  line-height: 100rpx;
+  position: relative;
+}
+.tab_nav.active{
+  background: #fff;
+  color: #40A9FF;
+}
+.tab_nav.active span{
+  font-weight: 500!important;
+}
+.tab_nav.active:before{
+  content: '';
+  position: absolute;
+  left:0;
+  top:50%;
+  transform: translate(0,-50%);
+  display: inline-block;
+  width:6rpx;
+  height:30rpx;
+  background:#40A9FF;
+  border-radius:3rpx;
+}
+.tab_nav span{
+
+}
+.tab-right {
+  background:#fff;
+  min-height: 100%;
+  width:80%;
+}
+.tab-right .tab_content{
+  display: none;
+}
+.tab-right .tab_content.active{
+  display: block
+}
+.tab_content .item_info{
+  width:64.5%;
+}

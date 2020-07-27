@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "搜索页面",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance":"100"
+}

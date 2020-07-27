@@ -1,0 +1,91 @@
+<view class="page-container index-container p-3">
+  <!-- banner -->
+  <view class="page-section">
+    <swiper
+      indicator-color="#fff"
+      indicator-active-color="#FF323E"
+      indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}"
+      interval="5000"
+      duration="1000"
+      class="index_swiper"
+    >
+      <block tt:for="{{background}}">
+        <swiper-item>
+          <image src="{{item}}" mode="aspectFill"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 首页分类  -->
+  <view class="page-section index_cate mt-3">
+    <view class="d-flex align-items-center justify-content-between">
+      <view tt:for="{{indexCate}}" class="text-center">
+        <image src="{{item.icon}}" mode="aspectFill" class="d-block"/>
+        <span class="fs_13 mt-1 d-block">{{item.title}}</span>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日精选 -->
+  <view class="page-section index_chosen mt-3 p-3">
+    <!-- 标题 -->
+    <view class="d-flex align-items-center justify-content-between">
+      <view>
+        <span class="font-weight-black fs_20 d-block">今日精选</span>
+        <span class="fs_15 d-block mt-2">本小程序仅供娱乐</span>
+      </view>
+      <view class="right_search" bindtap="indexSearch">
+        <button type="primary" class="fs_15 d-flex align-items-center">
+          <icon size="20" color="#000" type="search"/>
+          <span class="ml-1 mr-1">点击搜索</span>
+        </button>
+      </view>
+    </view>
+    <!-- 精选内容 -->
+    <view class="mt-3">
+      <scroll-view class="d-flex scroll-view-wrap" scroll-x>
+        <block tt:for="{{today_chosen}}">
+          <view class="chosen_card p-3">
+            <block tt:for="{{item.childrenItem}}" tt:for-index="childIndex" tt:for-item="childItem">
+              <view class="d-flex justify-content-between mb-3" bindtap="toTest" data-bindItem="{{childItem}}">
+                <image src="{{childItem.img}}"  mode="aspectFill" class="item_img"/>
+                <view class="d-flex flex-wrap align-content-between ml-3 chosen_card_right">
+                  <span class="fs_15 font-weight-semibold text-truncate">{{childItem.title}}</span>
+                  <view class="flex-fill-100">
+                    <icon class="iconfont icon-hot hot_icon mr-1"/>
+                    <span class="opacity-60">{{childItem.personNum}}人已测</span>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 推荐测评 -->
+  <view class="page-section dy_recommend mt-3">
+    <span class="fs_18">推荐测评</span>
+    <view class="mt-3">
+      <block tt:for="{{recommend}}">
+        <view class="d-flex justify-content-between mb-3" data-bindItem="{{item}}" bindtap="toTest">
+          <image src="{{item.img}}"  mode="aspectFill" class="item_img"/>
+          <view class="d-flex flex-wrap align-content-between ml-3 item_info">
+            <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{item.title}}</span>
+            <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{item.info}}</span>
+            <view class="flex-fill-100 d-flex justify-content-between">
+              <view>
+                <icon class="iconfont icon-hot hot_icon mr-1"/>
+                <span class="opacity-60">{{item.personNum}}人已测</span>
+              </view>
+              <button type="primary" class="item_test_btn fs_12">立即测试</button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+</view>

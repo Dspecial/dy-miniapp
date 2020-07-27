@@ -1,0 +1,39 @@
+.avatar_img{
+  width:120rpx;
+  height:120rpx;
+  border-radius: 50%;
+}
+.links_btn{
+  margin: 0;
+  color: #737AA1;
+  background:rgba(239,243,251,1);
+  border-radius:40rpx;
+}
+.links_btn::after{
+  border:0;
+}
+.records_cell{
+  background-color: #fff;
+  border-radius:8rpx;
+}
+.records_cell .item_img{
+  width:120rpx;
+  height:120rpx;
+}
+.records_cell .item_right{
+  width: 76%;
+}
+.records_btn{
+  border-radius:30rpx;
+}
+.records_btn:after{
+  border:0;
+}
+.records_btn_view{
+  background:rgba(64,169,255,0.2);
+  color: #40A9FF;
+}
+.records_btn_del{
+  background: #ff;
+  border:2rpx solid rgba(222,222,222,1);
+}

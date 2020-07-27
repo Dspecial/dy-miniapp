@@ -1,0 +1,41 @@
+<view class="page-container">
+  <!-- 测试信息 -->
+  <view class="page-section">
+    <image src="{{coverimg}}" mode="aspectFill" class="test_cover" />
+    <view class="mt-3 p-3 test">
+      <view class="fs_18 font-weight-semiblod">{{title}}</view>
+      <view class="font-weifht-normal fs_15 text-success mt-3">{{personNum}}人在测</view>
+      <view class="font-weifht-normal fs_15 mt-3 opacity-60">
+        {{description}}
+      </view>
+      <view class="mt-4 w-70 ml-auto mr-auto">
+        <button bindtap="toQuestion" data-bindid="{{id}}" class="bg-success fs_15"> 开始测试 </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 精选推荐 -->
+  <view class="page-section p-3 dy_recommend">
+    <view class="fs_18 font-weight-semibold">精选推荐</view>
+    <view class="mt-3">
+      <!-- item -->
+      <block tt:for="{{recommend}}">
+        <view class="d-flex justify-content-between mb-3" data-bindItem="{{item}}" bindtap="toTest">
+          <image src="{{item.img}}"  mode="aspectFill" class="item_img"/>
+          <view class="d-flex flex-wrap align-content-between ml-3 item_info">
+            <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{item.title}}</span>
+            <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{item.info}}</span>
+            <view class="flex-fill-100 d-flex justify-content-between">
+              <view>
+                <icon class="iconfont icon-hot hot_icon mr-1"/>
+                <span class="opacity-60">{{item.personNum}}人已测</span>
+              </view>
+              <button type="primary" class="item_test_btn fs_12">立即测试</button>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- /item -->
+    </view>
+  </view>
+</view>

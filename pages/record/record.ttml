@@ -1,0 +1,48 @@
+<view class="page-container record-container p-3">
+  <!-- 个人信息 -->
+  <view class="page-section">
+    <view class="d-flex align-items-center">
+      <image src="{{porfile.avatar_img}}" mode="aspectFill" class="avatar_img"/>
+      <view class="ml-3">
+        <p class="fs_17 font-weight-normal d-block mb-1">{{porfile.name}}</p>
+        <span class="opacity-60 fs_17 font-weight-normal d-block">ID:{{porfile.id}}</span>
+      </view>
+    </view>
+
+    <view class="mt-3 d-flex justify-content-between">
+      <button bindtap="linkTo" class="links_btn fs_13"><icon class="iconfont fs_12 icon-edit" /> 意见反馈 </button>
+      <button bindtap="makePhoneCallTap" class="links_btn fs_13"><icon class="iconfont fs_12 icon-tel" /> 电话客服 </button>
+      <button bindtap="linkTo" class="links_btn fs_13"><icon class="iconfont fs_12 icon-hezuo" /> 商务合作 </button>
+    </view>
+  </view>
+
+  <!-- 测评记录 -->
+  <view class="page-section mt-5">
+    <view class="fs_18 font-weight-normal">测评记录</view>
+    <view class="records_parent mt-3">
+      <block tt:for="{{recordsList}}">
+        <view class="records_cell p-3 mb-3">
+          <p class="d-flex justify-content-between">
+            <span>创建时间：{{item.createtime}}</span>
+            <span tt:if="{{item.finished == 0}}" class="text-primary">已完成</span>
+            <span tt:if="{{item.finished == 1}}" class="text-danger">未完成</span>
+          </p>
+          <view class="d-flex justify-content-between mt-3">
+            <image src="{{item.img}}"  mode="aspectFill" class="item_img"/>
+            <view class="d-flex flex-wrap align-content-between ml-3 item_right">
+              <span class="flex-fill-100 fs_15 font-weight-semibold text-truncate">{{item.title}}</span>
+              <span class="flex-fill-100 fs_12 opacity-60 font-weight-semibold text-truncate">{{item.info}}</span> 
+              <view class="flex-fill-100 opacity-60">{{item.personNum}}人已测</view>
+            </view>
+          </view>
+          <view class="ml-auto mt-3 d-flex" style="width:320rpx;">
+            <button class="records_btn records_btn_view fs_12 m-0 mr-1" bindtap="viewReport" data-binditem="{{item}}">查看报告</button>
+            <button class="records_btn records_btn_del m-0 fs_12" bindtap="delReport" data-index="{{index}}">删除报告</button>
+          </view>
+        </view>
+      </block>
+
+    </view>
+  </view>
+
+</view>

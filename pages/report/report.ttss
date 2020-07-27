@@ -1,0 +1,18 @@
+.result{
+  background-color: #fff;
+  box-shadow:0rpx 0rpx 20rpx 10rpx rgba(202,202,202,0.1);
+  border-radius:8rpx;
+}
+.result button{
+  border-radius:40rpx;
+  width: 100%;
+  margin: 0 30rpx;
+}
+.result button:after{
+  border:0;
+}
+.share_btn{
+  background:rgba(255,255,255,1);
+  border:2rpx solid rgba(28,209,123,1);
+  color: #19D07A;
+}

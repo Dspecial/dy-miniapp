@@ -1,0 +1,43 @@
+<view class="page-container category-container">
+  <view class="d-flex h-100">
+
+    <!-- 左边分类 -->
+    <view class="tab-left h-100"> 
+      <block tt:for="{{tabCate}}">
+        <view class="tab_nav text-center {{tabArr.curHdIndex==index? 'active' : ''}}" id="{{index}}"  data-id="{{index}}" bindtap="tab">
+          <span class="fs_15 font-weight-normal">{{item.title}}</span>
+        </view>
+      </block>
+    </view> 
+
+    <!-- 右边内容 -->
+    <view class="tab-right h-100">
+      
+      <block tt:for="{{tabCateContent}}">
+        <view class="tab_content dy_recommend p-3 {{tabArr.curBdIndex==index? 'active' : ''}}">
+          <span class="fs_12 mb-3 d-block">共<span class="font-weight-semibold ml-1 mr-1">{{item.content.length}}</span>个测评</span>
+          <!-- item -->
+          <block tt:for="{{item.content}}" tt:for-index="contentIndex" tt:for-item="contentItem">
+            <view class="d-flex justify-content-between mb-3" data-bindItem="{{contentItem}}" bindtap="toTest">
+              <image src="{{contentItem.img}}"  mode="aspectFill" class="item_img"/>
+              <view class="d-flex flex-wrap align-content-between ml-3 item_info">
+                <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{contentItem.title}}</span>
+                <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{contentItem.info}}</span>
+                <view class="flex-fill-100 d-flex justify-content-between">
+                  <view>
+                    <icon class="iconfont icon-hot hot_icon mr-1"/>
+                    <span class="opacity-60">{{contentItem.personNum}}人已测</span>
+                  </view>
+                  <button type="primary" class="item_test_btn fs_12">立即测试</button>
+                </view>
+              </view>
+            </view>
+          </block>
+          <!-- /item -->
+        </view>
+      </block>
+      
+    </view> 
+
+  </view>
+</view>

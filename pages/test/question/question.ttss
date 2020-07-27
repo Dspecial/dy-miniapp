@@ -1,0 +1,39 @@
+#app{
+  height: 100%;
+  background: #fff;
+}
+.ques_order{
+  background:rgba(64,169,255,0.2);
+  padding: 8rpx 30rpx;
+}
+.my-choosebox{
+  display: block;
+  border:1rpx solid rgba(208,208,208,1);
+  padding:18rpx 30rpx;
+  margin:0 0 30rpx 0;
+  font-size:30rpx;
+}
+.my-choosebox checkbox::shadow .tt-checkbox-wrapper{
+  width: 120px;
+}
+.ques_btn{
+  margin-top: 70rpx;
+}
+.ques_btn button{
+  color: #40A9FF;
+  background:rgba(64,169,255,0.2);
+  border-radius:40px;
+  width: 180rpx;
+  margin: 0;
+  font-size: 30rpx;
+}
+.ques_btn button:after{
+  border:0
+}
+.out_btn{
+  color: #737AA1;
+  float:right;
+}
+.page-input{
+  border-bottom:1px solid #D8D8D8;
+}
