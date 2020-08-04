@@ -2,37 +2,17 @@ const app = getApp();
 import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
-    background: [
-      "../../images/banner1.png", 
-      "../../images/banner2.png", 
-      "../../images/banner1.png", 
+    isAuthorize:false,
+    banner: [
+      {
+        id:"1",
+        is_typedata:"2",
+        image:"../../images/banner1.png"
+      },
     ],
     indicatorDots: true,
     autoplay:false,
-
-    indexCate:[
-      {
-        title:"游戏",
-        icon:"../../images/game.png"
-      },
-      {
-        title:"情感",
-        icon:"../../images/game.png"
-      },
-      {
-        title:"性格",
-        icon:"../../images/game.png"
-      },
-      {
-        title:"智商",
-        icon:"../../images/game.png"
-      },
-      {
-        title:"职场",
-        icon:"../../images/game.png"
-      },
-    ],
-
+    indexCate:[],
     today_chosen:[
       {
         groupName:"A",
@@ -80,92 +60,19 @@ Page({
         ],
       }
     ],
-    recommend:[
-      {
-        id:"111",
-        img:"../../images/index_recommend.png",
-        title:"你在什么年龄容易发财？你在什么年龄容易发财？",
-        info:"别再说富人越富、穷人越来越",
-        personNum:"1000万",
-      },
-      {
-        id:"222",
-        img:"../../images/index_chosen.png",
-        title:"你的EQ有多高？",
-        info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-        personNum:"20万",
-      },
-      {
-        id:"333",
-        img:"../../images/index_recommend.png",
-        title:"测测吧？",
-        info:"别再说富人越富、穷人越来越",
-        personNum:"20万",
-      }, 
-       {
-        id:"111",
-        img:"../../images/index_recommend.png",
-        title:"你在什么年龄容易发财？你在什么年龄容易发财？",
-        info:"别再说富人越富、穷人越来越",
-        personNum:"1000万",
-      },
-      {
-        id:"222",
-        img:"../../images/index_chosen.png",
-        title:"你的EQ有多高？",
-        info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-        personNum:"20万",
-      },
-      {
-        id:"333",
-        img:"../../images/index_recommend.png",
-        title:"测测吧？",
-        info:"别再说富人越富、穷人越来越",
-        personNum:"20万",
-      }, 
-    ],
+    recommend:[],
   },
   onLoad: function () {
-    this.getindexCate()
+    this.getindexBanner();
+    this.getindexCate();
+    this.getindexRecommend();
   },
-  // 下拉刷新
-  onPullDownRefresh: function () {
-    tt.showLoading({
-      title: 'loading...',
-      icon: 'loading'
-    })
-    setTimeout(() => {
-      this.stopPullDownRefresh();
-    }, 3000);
-  },
-  stopPullDownRefresh: function () {
-    tt.stopPullDownRefresh({
-      complete: function (res) {
-        tt.hideLoading();
-      }
-    })
-  },
-  // 上拉加载
-  onReachBottom () {
-    tt.showLoading({
-      title: 'loading...',
-      icon: 'loading'
-    })
-    setTimeout(() => {
-      this.stopPullDownRefresh();
-    }, 3000);
-  },
-  
-  // 请求测试分类接口
-  getindexCate(){
-    http.indexCateApi({ // 调用接口，传入参数
-      data: {
-        xiaochengxu_id:"1",
-      },
+  // 请求banner接口
+  getindexBanner(){
+    http.indexBannerApi({ // 调用接口，传入参数
       success: res => {
-        console.log('接口请求成功', res)
         this.setData({
-          //indexCate: res.data
+          banner: res.data
         })
       },
       fail: err => {
@@ -173,7 +80,55 @@ Page({
       }
     })
   },
-  
+  // banner点击事件
+  bannerTap(){
+
+  },
+
+  // 请求首页测试分类接口
+  getindexCate(){
+    http.indexCateApi({ // 调用接口，传入参数
+      success: res => {
+        this.setData({
+          indexCate: res.data
+        })
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+  // 去分类页面
+  goCategory(e){
+    var cateId = e.currentTarget.dataset.id;
+    var curindex =  e.currentTarget.dataset.index
+    tt.reLaunch({
+      url: '../category/category?id='+cateId +'&index='+curindex,// tab切换active的值先用curindex，回头再想办法
+      success(res) {
+        console.log(`跳转成功`);
+      },
+      fail(res) {
+        console.log(`navigateTo调用失败`);
+      },
+    })
+  },
+
+  // 请求首页推荐接口
+  getindexRecommend(){
+    http.indexRecommendApi({ 
+      success: res => {
+        this.setData({
+          recommend: res.data
+        })
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    });
+  },
   // 去搜索页面
   indexSearch: function(){
     tt.navigateTo({
@@ -215,5 +170,42 @@ Page({
         console.log(`showModal调用失败`);
       },
     });
-  }
+  },
+
+  // 列表图片加载失败
+  errImg(e){
+    var _errImg = e.target.dataset.errImg;
+    var _objImg = "'"+_errImg+"'";
+    var _errObj = {};
+    _errObj[_errImg]="../../images/imgError.png";
+    this.setData(_errObj);//注意这里的赋值方式...
+  },
+
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    tt.showLoading({
+      title: 'loading...',
+      icon: 'loading'
+    })
+    setTimeout(() => {
+      this.stopPullDownRefresh();
+    }, 3000);
+  },
+  stopPullDownRefresh: function () {
+    tt.stopPullDownRefresh({
+      complete: function (res) {
+        tt.hideLoading();
+      }
+    })
+  },
+  // 上拉加载
+  // onReachBottom () {
+  //   tt.showLoading({
+  //     title: 'loading...',
+  //     icon: 'loading'
+  //   })
+  //   setTimeout(() => {
+  //     this.stopPullDownRefresh();
+  //   }, 3000);
+  // },
 })

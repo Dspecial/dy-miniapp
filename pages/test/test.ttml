@@ -1,7 +1,13 @@
 <view class="page-container">
   <!-- 测试信息 -->
   <view class="page-section">
-    <image src="{{coverimg}}" mode="aspectFill" class="test_cover" />
+    <view class="p-relative">
+      <image src="{{coverimg}}" mode="aspectFill" binderror="imgLoadError" class="test_cover" />
+      <view class="test_img_error p-absolute" tt:if="{{imgError}}">
+        <icon class="iconfont icon-tupianjiazaishibai"/>
+        <view class="font-weifht-normal fs_15 mt-2 opacity-60">图片加载失败</view>
+      </view>
+    </view>
     <view class="mt-3 p-3 test">
       <view class="fs_18 font-weight-semiblod">{{title}}</view>
       <view class="font-weifht-normal fs_15 text-success mt-3">{{personNum}}人在测</view>
@@ -21,14 +27,19 @@
       <!-- item -->
       <block tt:for="{{recommend}}">
         <view class="d-flex justify-content-between mb-3" data-bindItem="{{item}}" bindtap="toTest">
-          <image src="{{item.img}}"  mode="aspectFill" class="item_img"/>
+          <view class="p-relative">
+            <image src="{{item.image?item.image:'../../images/imageDefault.png'}}" data-err-img="recommend[{{index}}].image" binderror="errImg" mode="aspectFill" class="item_img"/>
+            <view class="test_img_error p-absolute" tt:if="{{item.imgError}}">
+              <icon class="iconfont icon-tupianjiazaishibai"/>
+            </view>
+          </view>
           <view class="d-flex flex-wrap align-content-between ml-3 item_info">
-            <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{item.title}}</span>
-            <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{item.info}}</span>
+            <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{item.matter_name}}</span>
+            <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{item.brief}}</span>
             <view class="flex-fill-100 d-flex justify-content-between">
-              <view>
+              <view class=" text-truncate testNum2">
                 <icon class="iconfont icon-hot hot_icon mr-1"/>
-                <span class="opacity-60">{{item.personNum}}人已测</span>
+                <span class="opacity-60">{{item.allnum}}人已测</span>
               </view>
               <button type="primary" class="item_test_btn fs_12">立即测试</button>
             </view>

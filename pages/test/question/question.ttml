@@ -11,7 +11,9 @@
     <view class="mt-3">
       <view class="ques_title">
         <span class="fs_17 font-weight-semiblod">{{questionList[index].question}}</span>
-        <span class="fs_14 font-weight-noamal ml-2">{{questionList[index].type==1?"【单选】":items[index].type==2?"【多选】":"【填空】"}}</span>
+        <span class="fs_14 font-weight-noamal ml-2" tt:if="{{questionList[index].type == 1}}">【单选】</span>
+        <span class="fs_14 font-weight-noamal ml-2" tt:elif="{{questionList[index].type == 3}}">【多选】</span>
+        <span class="fs_14 font-weight-noamal ml-2" tt:elif="{{questionList[index].type == 2}}">【填空】</span>
       </view>
     </view>
 
@@ -19,18 +21,18 @@
     <view class="ques_content mt-3">
       <!-- 单选 -->
       <radio-group bindchange="radioChange" tt:if="{{questionList[index].type == 1}}">
-        <label class="radio my-choosebox" tt:for="{{questionList[index].options}}">
-          <radio value="{{item.value}}" checked="{{item.checked}}" color="#40A9FF"/>{{item.value}}. {{item.name}}
+        <label class="radio my-choosebox" tt:for="{{questionList[index].se}}">
+          <radio value="{{item.val}}" checked="{{item.checked}}" color="#40A9FF"/>{{item.value}}{{item.name}}
         </label>
       </radio-group>
       <!-- 多选 -->
-      <checkbox-group bindchange="checkboxChange" tt:elif="{{questionList[index].type == 2}}">
-        <label class="checkbox my-choosebox" tt:for="{{questionList[index].options}}">
-          <checkbox value="{{item.value}}" checked="{{item.checked}}" color="#40A9FF"/>{{item.value}}. {{item.name}}
+      <checkbox-group bindchange="checkboxChange" tt:elif="{{questionList[index].type == 3}}">
+        <label class="checkbox my-choosebox" tt:for="{{questionList[index].se}}">
+          <checkbox value="{{item.val}}" checked="{{item.checked}}" color="#40A9FF"/>{{item.value}}{{item.name}}
         </label>
       </checkbox-group>
       <!-- 填空 -->
-      <block tt:elif="{{questionList[index].type == 3}}">
+      <block tt:elif="{{questionList[index].type == 2}}">
         <input class="page-input fs_16 pt-2 pb-2" 
         focus="true"
         placeholder="请输入{{questionList[index].question}}" 

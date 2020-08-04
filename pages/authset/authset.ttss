@@ -1,0 +1,23 @@
+#app{
+  height: 100%;
+}
+.auth-container{
+  position: absolute;
+  top:30%;
+  left:50%;
+  transform: translate(-50%,-30%);
+}
+
+.douyin_logo{
+  width: 160rpx;
+  height: 160rpx;
+}
+.auth_btn{
+  color: #40A9FF;
+  background:rgba(64,169,255,0.2);
+  border-radius:30rpx;
+  margin: 0;
+}
+.auth_btn:after{
+  border:0
+}

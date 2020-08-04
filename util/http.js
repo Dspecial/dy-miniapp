@@ -3,12 +3,13 @@ var host = "http://dy.weilaixxjs.cn";
 
 module.exports = {
   http(url, method, params) {
-    let token = 'token' // 获取token，自行获取token和签名，token和签名表示每个接口都要发送的数据
-    let sign = 'sign' // 获取签名 (后台怎么定义的，就传什么)
+    let token = 'token'; // 获取token，自行获取token和签名，token和签名表示每个接口都要发送的数据
+    let sign = 'sign'; // 获取签名 (后台怎么定义的，就传什么)
     let data = {
       token,
-      sign
-    }
+      sign,
+      xiaochengxu_id:1,
+    };
     tt.showLoading({
       title: '加载中...',
       icon: 'loading'
@@ -20,7 +21,7 @@ module.exports = {
         }
       }
       data = { ...data, ...params.data }
-    }
+    };
     tt.request({
       url: host + url, // 就是拼接上前缀,此接口域名是开放接口，可访问
       method: method == 'POST' ? 'POST' : 'GET', // 判断请求类型，除了值等于'post'外，其余值均视作get 其他的请求类型也可以自己加上的
@@ -37,6 +38,6 @@ module.exports = {
         params.fail && params.fail(err);
         wx.hideLoading();
       }
-    })
+    });
   }
 }

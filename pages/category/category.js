@@ -1,90 +1,116 @@
+import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
     tabCate:[
-      {
-        id:"01",
-        title:"全部"
-      },
-      {
-        id:"02",
-        title:"游戏"
-      },
-      {
-        id:"03",
-        title:"情感"
-      },
-      {
-        id:"04",
-        title:"性格"
-      },
-      {
-        id:"05",
-        title:"智商"
-      },
-      {
-        id:"06",
-        title:"职场"
-      }
     ],
-    tabCateContent:[
-      {
-        id:"01",
-        cate:"全部",
-        content:[
-          {
-            id:"0101",
-            img:"../../images/index_chosen.png",
-            title:"你的EQ有多高？",
-            info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-            personNum:"1000万",
-          },
-          {
-            id:"0102",
-            img:"../../images/index_recommend.png",
-            title:"你的EQ有多高？",
-            info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-            personNum:"20万",
-          },
-          {
-            id:"0103",
-            img:"../../images/index_chosen.png",
-            title:"你的EQ有多高？",
-            info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-            personNum:"20万",
-          },
-        ],
-      },
-      {
-        id:"02",
-        cate:"游戏",
-        content:[
-          {
-            id:"0201",
-            img:"../../images/index_recommend.png",
-            title:"你的EQ有多高？",
-            info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-            personNum:"10万",
-          },
-          {
-            id:"0202",
-            img:"../../images/index_chosen.png",
-            title:"测测吧",
-            info:"别再说富人越富、穷人越来越,别再说富人越富、穷人越来越",
-            personNum:"20万",
-          },
-        ],
-      },
-    ],
+    tabCateContent:{
+    },
     // tab 切换
-    tabArr: {
-      curHdIndex: 0,
-      curBdIndex: 0
-    }, 
+    curIndex:0,
+    cateId:'',
   },
-  onLoad: function () {
-    console.log('分类')
+  onLoad: function (option) {
+    console.log(option);
+    if(option.id){
+      this.setData({
+        curIndex:option.index
+      });
+      this.getCategory(true);
+      this.getCategoryList(option.id);
+    }else{
+      this.getCategory(false);
+    }
   },
-  // 下拉刷新
+  // 请求测试分类接口
+  getCategory(isIndex){
+    http.categoryApi({ // 调用接口，传入参数
+      success: res => {
+        //console.log('分类接口请求成功', res)
+        this.setData({
+          tabCate: res.data
+        })
+        if(isIndex){
+          console.log("从首页跳转过来的");
+        }else{
+          console.log("点击tab后");
+          this.getCategoryList(this.data.tabCate[0].id);// 默认展示第一个
+        } 
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    })
+  },
+  // 请求测试分类列表接口
+  getCategoryList(id){
+    http.categoryListApi({ // 调用接口，传入参数
+      data:{
+        c_id:id
+      },
+      success: res => {
+        //console.log('分类列表接口请求成功', res)
+        this.setData({
+          tabCateContent: res.data
+        })
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    })
+  },
+  // 列表图片加载失败
+  errImg(e){
+    var _errImg = e.target.dataset.errImg;
+    var _objImg = "'"+_errImg+"'";
+    var _errObj = {};
+    _errObj[_errImg]="../../images/imgError.png";
+    this.setData(_errObj);//注意这里的赋值方式...
+  },
+  //tab切换
+  tab: function (e) {
+    var dataId = e.currentTarget.dataset.id;
+    this.setData({
+      curIndex: e.currentTarget.id
+    })
+    this.getCategoryList(dataId);// 切换展示
+  },
+  // 去测试页面
+  toTest:function(e){
+    var item = e.currentTarget.dataset.binditem;
+    tt.showModal({
+      title: "提示",
+      content: "即将进入测试",
+      success(res) {
+        if (res.confirm) {
+          tt.navigateTo({
+            url: '../test/test?id='+item.id,
+            success(res) {
+              console.log('跳转成功');
+              //console.log(`${res}`);
+            },
+            fail(res) {
+              console.log(`navigateTo调用失败`);
+            },
+          })
+        } else if (res.cancel) {
+          console.log("cancel, cold");
+        } else {
+          // what happend?
+        }
+      },
+      fail(res) {
+        console.log(`showModal调用失败`);
+      },
+    });
+  },
+
+    // 下拉刷新
   onPullDownRefresh: function () {
     tt.showLoading({
       title: 'loading...',
@@ -111,44 +137,4 @@ Page({
       this.stopPullDownRefresh();
     }, 3000);
   },
-  //tab切换
-  tab: function (e) {
-    //var dataId = e.currentTarget.dataset.id;
-    var dataId = e.currentTarget.id;
-    var obj = {};
-    obj.curHdIndex = dataId;
-    obj.curBdIndex = dataId;
-    this.setData({
-      tabArr: obj
-    })
-    //console.log(e);
-  },
-  // 去测试页面
-  toTest:function(e){
-    var item = e.currentTarget.dataset.binditem;
-    tt.showModal({
-      title: "提示",
-      content: "即将进入测试",
-      success(res) {
-        if (res.confirm) {
-          tt.navigateTo({
-            url: '../test/test?id='+item.id,
-            success(res) {
-              console.log(`${res}`);
-            },
-            fail(res) {
-              console.log(`navigateTo调用失败`);
-            },
-          })
-        } else if (res.cancel) {
-          console.log("cancel, cold");
-        } else {
-          // what happend?
-        }
-      },
-      fail(res) {
-        console.log(`showModal调用失败`);
-      },
-    });
-  }
 })

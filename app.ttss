@@ -642,7 +642,15 @@
   background-color: #14D47C!important;
   color: #fff!important;
 }
-
+.p-relative{
+  position: relative;
+}
+.p-absolute{
+  position: absolute;
+}
+.p-fixed{
+  position: fixed;
+}
 /* 页面开始 */
 #app{
   background-color: #FAFAFC;
@@ -685,4 +693,21 @@
   width:24rpx;
   height: 24rpx;
   color: #FF323E;
+}
+.dy_recommend .testNum{
+  max-width:196rpx;
+}
+.dy_recommend .testNum2{
+  max-width:340rpx;
+}
+/* 图片加载失败 */
+.test_img_error{
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+.test_img_error icon{
+  font-size:300rpx;
+  color: #ccc;
 }

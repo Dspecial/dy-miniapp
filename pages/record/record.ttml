@@ -28,11 +28,11 @@
             <span tt:if="{{item.finished == 1}}" class="text-danger">未完成</span>
           </p>
           <view class="d-flex justify-content-between mt-3">
-            <image src="{{item.img}}"  mode="aspectFill" class="item_img"/>
+            <image src="{{item.image}}"  mode="aspectFill" class="item_img"/>
             <view class="d-flex flex-wrap align-content-between ml-3 item_right">
-              <span class="flex-fill-100 fs_15 font-weight-semibold text-truncate">{{item.title}}</span>
-              <span class="flex-fill-100 fs_12 opacity-60 font-weight-semibold text-truncate">{{item.info}}</span> 
-              <view class="flex-fill-100 opacity-60">{{item.personNum}}人已测</view>
+              <span class="flex-fill-100 fs_15 font-weight-semibold text-truncate">{{item.matter_name}}</span>
+              <span class="flex-fill-100 fs_12 opacity-60 font-weight-semibold text-truncate">{{item.brief}}</span> 
+              <view class="flex-fill-100 opacity-60">{{item.allnum}}人已测</view>
             </view>
           </view>
           <view class="ml-auto mt-3 d-flex" style="width:320rpx;">
