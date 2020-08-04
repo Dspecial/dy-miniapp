@@ -37,7 +37,7 @@
           </view>
           <view class="ml-auto mt-3 d-flex" style="width:320rpx;">
             <button class="records_btn records_btn_view fs_12 m-0 mr-1" bindtap="viewReport" data-binditem="{{item}}">查看报告</button>
-            <button class="records_btn records_btn_del m-0 fs_12" bindtap="delReport" data-index="{{index}}">删除报告</button>
+            <button class="records_btn records_btn_del m-0 fs_12" bindtap="delReport" data-index="{{item.id}}">删除报告</button>
           </view>
         </view>
       </block>

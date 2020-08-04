@@ -45,7 +45,7 @@ Page({
         open_id:openid,
       },
       success: res => {
-        console.log(res,'用户信息')
+        //console.log(res,'用户信息')
         this.setData({
           porfile: res.data
         })
@@ -62,7 +62,7 @@ Page({
   getMobile(){
     http.mobileApi({
       success: res => {
-        console.log(res,'电话号码')
+        //console.log(res,'电话号码')
         this.setData({
           mobile: res.data
         })
@@ -100,9 +100,16 @@ Page({
         page:1,
       },
       success: res => {
-        console.log(res,'测评记录')
+        //console.log(res,'测评记录');
+        var list = res.data.data;
+        var array = [];
+        list.map((item,index)=>{
+          array.push(
+            Object.assign(item,{finished:0})
+          )
+        });
         this.setData({
-          //recordsList: res.data.data
+          recordsList: list
         })
       },
       fail: err => {
@@ -131,21 +138,35 @@ Page({
   // 删除报告 
   delReport(e){
     var index = e.currentTarget.dataset.index;  //获取自定义的内容下标值
-    var list = this.data.recordsList;
     var _this = this;
     tt.showModal({        
       content: '是否确定删除内容？',
       success: function (res) {
-        if (res.confirm) {                  //点击确定后
-          list.splice(index, 1);       //截取指定的内容
-          _this.setData({               //重新渲染列表
-            recordsList:list
-          })
+        if (res.confirm) {//点击确定后          
+          _this.getDelReport(index);
         }
       }
     })
   },
-
+  // 获取删除报告接口
+  getDelReport(id){
+    var _this = this;
+    http.delreportApi({
+      data:{
+        id:id
+      },
+      success: res => {
+        console.log(res,'删除成功');
+        _this.getRecordList();
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    });
+  },
   // 下拉刷新
   onPullDownRefresh: function () {
     tt.showLoading({

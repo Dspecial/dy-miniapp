@@ -14,8 +14,26 @@
       <view class="font-weifht-normal fs_15 mt-3 opacity-60">
         {{description}}
       </view>
-      <view class="mt-4 w-70 ml-auto mr-auto">
+      <view class="mt-4 w-70 ml-auto mr-auto" tt:if="{{type == 1}}">
         <button bindtap="toQuestion" data-bindid="{{id}}" class="bg-success fs_15"> 开始测试 </button>
+      </view>
+      <view class="mt-4" tt:elif="{{type == 2}}">
+        <view class="d-flex">
+          <view class="my_radio d-flex align-items-center justify-content-between">
+            <view class="w-50 fs_17 text-center item {{_sex==1?'active':''}}" bindtap="radioChange" data-num="1">男</view>
+            <view class="w-50 fs_17 text-center item {{_sex==2?'active':''}}" bindtap="radioChange" data-num="2">女</view>
+          </view>
+          <input class="page-input fs_16 pt-2 pb-2" 
+            focus="true"
+            placeholder="请输入您的姓名" 
+            value="{{inputValue}}" 
+            bindinput="oninput" 
+            bindfocus="onfocus"
+            bindconfirm="onconfirm"/>
+        </view>
+        <view class="mt-4">
+          <button bindtap="toReport" data-bindid="{{id}}" class="bg-success fs_15"> 点次查询 </button>
+        </view>
       </view>
     </view>
   </view>

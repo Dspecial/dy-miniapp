@@ -8,6 +8,8 @@ Page({
     title:"",
     personNum:"",
     description:"",
+    inputValue:"",
+    _sex:'1',
     recommend:[],
   },
   onLoad: function (option) {
@@ -23,7 +25,7 @@ Page({
         id:id,
       },
       success: res => {
-        // console.log('测试详情接口请求成功', res);
+        console.log('测试详情接口请求成功', res);
         var info = res.data.info;
         var recommendList = res.data.recommend_list;
         this.setData({
@@ -100,5 +102,23 @@ Page({
         console.log(`showModal调用失败`);
       },
     });
-  }
+  },
+  radioChange(e){
+    this.setData({
+      _sex:e.target.dataset.num,
+    })
+  },
+  oninput: function (e) {
+    console.log('input获取焦点事件，携带value值为：', e.detail.value);
+  },
+  onfocus: function (e) {
+    //console.log(e);
+  },
+  onblur: function (e) {
+    tt.showToast({ title: "blur" });
+  },
+  toReport:function(e){
+    // 这个查询接口好像没有
+    console.log("hhhh");
+  },
 })

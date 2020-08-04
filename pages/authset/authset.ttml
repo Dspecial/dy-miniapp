@@ -1,8 +1,8 @@
-<view class="h-100">
-  <view class="auth-container text-center p-5">
-    <image src="../../images/douyin_logo.png" mode="aspectFit" class="douyin_logo"/>
-    <view>
-      <button type="primary" class="auth_btn fs_14 mt-5" bindtap="reAuth"> 授权登录</button>
+<view class="h-100 auth-container">
+  <view class="h-100">
+    <image src="../../images/auth_bg.png" mode="aspectFit" class="auth_bg"/>
+    <view class="btn_view " tt:if="{{!loginStatus}}">
+      <button type="primary" class="auth_btn fs_14" bindtap="reAuth"> 授权登录</button>
     </view>
   </view>
 </view>

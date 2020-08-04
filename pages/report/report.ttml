@@ -1,16 +1,16 @@
 <view class="page-container p-3">
   <!-- 结果 -->
   <view class="page-section result p-3">
-    <view class="fs_17 font-weight-semibold">{{title}}</view>
-    <view class="fs_15 font-weight-normal mt-3 text-primary">{{personNum}}人在测</view>
+    <view class="fs_17 font-weight-semibold">{{details.matter_name}}</view>
+    <view class="fs_15 font-weight-normal mt-3 text-primary">{{details.allnum}}人在测</view>
     <view class="hr"></view>
     <view class="fs_13 font-weight-normal">测试结果：</view>
     <view class="text-success fs_20 font-weight-semibold mt-3">
-      {{result.key}}：{{result.value}}分
+      {{details.title}}
     </view>
     <view class="fs_13 font-weight-normal mt-5">详细分析：</view>
     <view class="fs_13 opacity-60 mt-3">
-      {{detail}}
+      {{details.content}}
     </view>
     <view class="mt-5 d-flex justify-content-between">
       <button class="fs_15 share_btn" bindtap="onShareAppMessage" data-name="shareBtn" open-type="share">分享好友 </button>
@@ -19,20 +19,25 @@
   </view>
 
   <!-- 精选推荐 -->
-  <view class="page-section mt-5 dy_recommend">
-    <view class="mt-5 fs_18 font-weight-semibold">精选推荐</view>
+  <view class="page-section p-3 dy_recommend">
+    <view class="fs_18 font-weight-semibold">精选推荐</view>
     <view class="mt-3">
       <!-- item -->
       <block tt:for="{{recommend}}">
         <view class="d-flex justify-content-between mb-3" data-bindItem="{{item}}" bindtap="toTest">
-          <image src="{{item.img}}"  mode="aspectFill" class="item_img"/>
+          <view class="p-relative">
+            <image src="{{item.image?item.image:'../../images/imageDefault.png'}}" data-err-img="recommend[{{index}}].image" binderror="errImg" mode="aspectFill" class="item_img"/>
+            <view class="test_img_error p-absolute" tt:if="{{item.imgError}}">
+              <icon class="iconfont icon-tupianjiazaishibai"/>
+            </view>
+          </view>
           <view class="d-flex flex-wrap align-content-between ml-3 item_info">
-            <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{item.title}}</span>
-            <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{item.info}}</span>
+            <span class="flex-fill-100 fs_17 font-weight-semibold text-truncate">{{item.matter_name}}</span>
+            <span class="flex-fill-100 fs_12 font-weight-normal opacity-60 text-truncate">{{item.brief}}</span>
             <view class="flex-fill-100 d-flex justify-content-between">
-              <view>
+              <view class=" text-truncate testNum2">
                 <icon class="iconfont icon-hot hot_icon mr-1"/>
-                <span class="opacity-60">{{item.personNum}}人已测</span>
+                <span class="opacity-60">{{item.allnum}}人已测</span>
               </view>
               <button type="primary" class="item_test_btn fs_12">立即测试</button>
             </view>

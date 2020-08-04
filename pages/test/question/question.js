@@ -18,50 +18,6 @@ Page({
           { value: "D", val:"20",name: "总是",checked:false }
         ],
       },
-      {
-        type:'1',
-        question:"你一天吃几顿?",
-        se:[
-          { value: "A", val:"5",name: "不会",checked:false,score:"1"},
-          { value: "B", val:"15",name: "两顿",checked:false},
-          { value: "C", val:"20",name: "三顿" ,checked:false},
-          { value: "D", val:"25",name: "四顿" ,checked:false},
-          { value: "E", val:"30",name: "更多",checked:false}
-        ]
-      },
-      {
-        type:'1',
-        question:"你最喜欢的运动是什么?",
-        se:[
-          { value: "A", val:"5",name: "排球",checked:false },
-          { value: "B", val:"15",name: "足球",checked:false},
-          { value: "C", val:"10",name: "篮球",checked:false},
-          { value: "D", val:"13",name: "竞走",checked:false},
-          { value: "E", val:"12",name: "跑步",checked:false},
-          { value: "F", val:"11",name: "跳绳",checked:false},
-        ]
-      },
-      // {
-      //   type:'2',
-      //   question:"你最喜欢的吃什么?",
-      //   se:[
-      //     { value: "A", name: "米饭" ,checked:false},
-      //     { value: "B", name: "面条",checked:false},
-      //     { value: "C", name: "煎饼",checked:false},
-      //     { value: "D", name: "炒菜",checked:false},
-      //     { value: "E", name: "烧烤",checked:false},
-      //   ]
-      // },
-      // {
-      //   type:'3',
-      //   question:"您的姓名?",
-      //   inputValue:"",
-      // },
-      // {
-      //   type:'3',
-      //   question:"您的年龄?",
-      //   inputValue:"",
-      // },
     ],
   },
   onLoad: function (option) {
@@ -229,25 +185,29 @@ Page({
 
   // 提交答案
   commit(score){
+    var openid = tt.getStorageSync("openid");
     http.questionCommitApi({ // 调用接口，传入参数
       data:{
         id:this.data.id,
-        open_id:"1", // 不知道是个啥
+        open_id:openid, // 不知道是个啥
         score:score,
       },
       success: res => {
         console.log('提交答案接口请求成功', res);
-        // ...这里还要调广告
-        // tt.redirectTo({
-        //   url: '../../report/report?totalScore='+ score,
-        //   success(res) {
-        //     //console.log(`${res}`);
-        //     console.log(`跳转成功`);
-        //   },
-        //   fail(res) {
-        //     console.log(`redirectTo调用失败`);
-        //   },
-        // })
+        // ...这里还要调广告????
+
+
+        
+        tt.redirectTo({
+          url: '../../report/report?id='+ res.data,
+          success(res) {
+            //console.log(`${res}`);
+            console.log(`跳转成功`);
+          },
+          fail(res) {
+            console.log(`redirectTo调用失败`);
+          },
+        })
       },
       fail: err => {
         tt.showToast({

@@ -9,3 +9,32 @@
 .test button:after{
   border:0;
 }
+.my_radio{
+  border:1px solid #1CD17B;
+  border-radius: 60rpx;
+  width:170rpx;
+  margin-right:30rpx;
+}
+.my_radio .item{
+  height: 100%;
+  line-height: 92rpx;
+  color: #999;
+}
+.my_radio .item:first-child{
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.my_radio .item:last-child{
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.my_radio .item.active{
+  background-color: #1CD17B;
+  color: #fff;
+}
+.page-input{
+  width:520rpx;
+  border:1px solid #1CD17B;
+  border-radius: 60rpx;
+  padding:0 30rpx;
+}

@@ -51,6 +51,12 @@ function mobileApi(params) { // 电话号码
 function recordListApi(params) { // 测评记录
   http('/api/bytdance/items/record_list', 'POST', params)
 }
+function reportApi(params) { // 测评详情
+  http('/api/bytdance/items/record_details', 'POST', params)
+}
+function delreportApi(params) { // 删除报告
+  http('/api/bytdance/items/record_delete', 'POST', params)
+}
 
 export default { // 暴露接口
   indexCateApi,
@@ -67,4 +73,6 @@ export default { // 暴露接口
   porfileApi,
   mobileApi,
   recordListApi,
+  reportApi,
+  delreportApi,
 }
