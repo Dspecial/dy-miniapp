@@ -128,7 +128,7 @@ Page({
     })
   },
   onfocus: function (e) {
-    console.log(e);
+    //console.log(e);
   },
   onblur: function (e) {
     tt.showToast({ title: "blur" });

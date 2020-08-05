@@ -158,7 +158,6 @@ Page({
           tt.navigateTo({
             url: '../test/test?id='+item.id,
             success(res) {
-              //console.log(`${res}`);
               console.log(`跳转成功`);
             },
             fail(res) {

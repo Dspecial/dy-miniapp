@@ -143,7 +143,6 @@ Page({
   // 删除报告 
   delReport(e){
     var index = e.currentTarget.dataset.index;  //获取自定义的内容下标值
-    console.log(index);
     var _this = this;
     tt.showModal({        
       content: '是否确定删除内容？',
@@ -168,7 +167,6 @@ Page({
         id:id
       },
       success: res => {
-        console.log(res,'删除成功');
         var list = _this.data.recordsList;
         //找到要删除的订单id的index
         list.map(function(item,index){

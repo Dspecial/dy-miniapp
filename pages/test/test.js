@@ -27,7 +27,6 @@ Page({
         id:id,
       },
       success: res => {
-        console.log('测试详情接口请求成功', res);
         var info = res.data.info;
         var recommendList = res.data.recommend_list;
         this.setData({
@@ -95,7 +94,7 @@ Page({
             },
           })
         } else if (res.cancel) {
-          console.log("cancel, cold");
+          // console.log("cancel, cold");
         } else {
           // what happend?
         }
@@ -137,8 +136,6 @@ Page({
   },
   // 填了，去报告页面
   toReport:function(e){
-    // 这个查询接口好像没有
-    console.log("hhhh");
     // 提交接口
     this.commit();
   },
@@ -152,7 +149,7 @@ Page({
         open_id:openid,
       },
       success: res => {
-        console.log('提交答案接口请求成功', res);
+        //console.log('提交答案接口请求成功', res);
         // 看广告
         app.play_ad(res.data,this.data.id);
       },

@@ -56,7 +56,6 @@ Page({
           tt.navigateTo({
             url: '../test/test?id='+item.id,
             success(res) {
-              //console.log(`${res}`);
               console.log(`跳转成功`);
             },
             fail(res) {
@@ -64,7 +63,7 @@ Page({
             },
           })
         } else if (res.cancel) {
-          console.log("cancel, cold");
+          //console.log("cancel, cold");
         } else {
           // what happend?
         }

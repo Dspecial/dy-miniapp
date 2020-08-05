@@ -10,7 +10,7 @@
     </view>
     <view class="fs_13 font-weight-normal mt-5">详细分析：</view>
     <view class="fs_13 opacity-60 mt-3">
-      {{details.content}}
+      <rich-text nodes="{{details.content}}"></rich-text>
     </view>
     <view class="mt-5 d-flex justify-content-between">
       <button class="fs_15 share_btn" bindtap="onShareAppMessage" data-name="shareBtn" open-type="share">分享好友 </button>

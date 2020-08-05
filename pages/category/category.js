@@ -98,7 +98,7 @@ Page({
             },
           })
         } else if (res.cancel) {
-          console.log("cancel, cold");
+          // console.log("cancel, cold");
         } else {
           // what happend?
         }
