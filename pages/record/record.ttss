@@ -34,6 +34,10 @@
   color: #40A9FF;
 }
 .records_btn_del{
-  background: #ff;
+  background: #fff;
   border:2rpx solid rgba(222,222,222,1);
+}
+
+.loading{
+  color: #999;
 }

@@ -10,7 +10,6 @@ Page({
     cateId:'',
   },
   onLoad: function (option) {
-    console.log(option);
     if(option.id){
       this.setData({
         curIndex:option.index

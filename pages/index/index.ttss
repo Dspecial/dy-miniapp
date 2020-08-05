@@ -11,6 +11,7 @@
 .index_cate image{
   width: 70rpx;
   height: 70rpx;
+  border-radius: 50%;
 }
 
 .index_chosen{
@@ -50,4 +51,7 @@
 }
 .chosen_card >view.mb-3:last-child{
   margin-bottom:0!important;
+}
+.today_item{
+  min-height:120rpx;
 }

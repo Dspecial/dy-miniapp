@@ -33,7 +33,8 @@
   color: #fff;
 }
 .page-input{
-  width:520rpx;
+  /* width:520rpx; */
+  width:100%;
   border:1px solid #1CD17B;
   border-radius: 60rpx;
   padding:0 30rpx;

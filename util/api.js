@@ -6,11 +6,14 @@ import { http } from './http'; // 引入刚刚封装好的http模块，import属
 /**
  * 首页
  */
-function indexCateApi(params) { // 请求首页测试分类接口
-  http('/api/bytdance/items/item_extend', 'POST', params)  // 接口请求的路由地址以及请求方法在此处传递
-}
 function indexBannerApi(params) { // 请求首页banner接口
-  http('/api/bytdance/items/item_get_index_item', 'POST', params) 
+  http('/api/bytdance/items/item_get_index_item', 'POST', params)  // 接口请求的路由地址以及请求方法在此处传递
+}
+function indexCateApi(params) { // 请求首页测试分类接口
+  http('/api/bytdance/items/item_extend', 'POST', params) 
+}
+function indexTodayApi(params) { // 请求首页今日精选接口
+  http('/api/bytdance/items/item_get_index_item_show', 'POST', params) 
 }
 function indexRecommendApi(params) { // 请求首页推荐测评接口
   http('/api/bytdance/items/recommend_list', 'POST', params) 
@@ -57,10 +60,17 @@ function reportApi(params) { // 测评详情
 function delreportApi(params) { // 删除报告
   http('/api/bytdance/items/record_delete', 'POST', params)
 }
+/**
+ * 广告记录
+ */
+function advApi(params) { // 删除报告
+  http('/api/bytdance/commission/expenses', 'POST', params)
+}
 
 export default { // 暴露接口
-  indexCateApi,
   indexBannerApi,
+  indexCateApi,
+  indexTodayApi,
   indexRecommendApi,
   authorizedApi,
 

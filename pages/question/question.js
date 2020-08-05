@@ -1,4 +1,5 @@
-import http from '../../../util/api' // 引入api接口管理文件
+const app = getApp();
+import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
     id:"",
@@ -8,16 +9,16 @@ Page({
     totalScore:0,
     personNum:"100万",
     questionList: [
-      {
-        type:'1',
-        question:"你何时会感受到痛苦?",
-        se:[
-          { value: "A", val:"5",name: "不会",checked:false,score:"1"},
-          { value: "B", val:"10",name: "偶尔",checked:false},
-          { value: "C", val:"15",name: "经常",checked:false },
-          { value: "D", val:"20",name: "总是",checked:false }
-        ],
-      },
+      // {
+      //   type:'1',
+      //   question:"你何时会感受到痛苦?",
+      //   se:[
+      //     { value: "A", val:"5",name: "不会",checked:false,score:"1"},
+      //     { value: "B", val:"10",name: "偶尔",checked:false},
+      //     { value: "C", val:"15",name: "经常",checked:false },
+      //     { value: "D", val:"20",name: "总是",checked:false }
+      //   ],
+      // },
     ],
   },
   onLoad: function (option) {
@@ -189,25 +190,13 @@ Page({
     http.questionCommitApi({ // 调用接口，传入参数
       data:{
         id:this.data.id,
-        open_id:openid, // 不知道是个啥
+        open_id:openid,
         score:score,
       },
       success: res => {
         console.log('提交答案接口请求成功', res);
-        // ...这里还要调广告????
-
-
-        
-        tt.redirectTo({
-          url: '../../report/report?id='+ res.data,
-          success(res) {
-            //console.log(`${res}`);
-            console.log(`跳转成功`);
-          },
-          fail(res) {
-            console.log(`redirectTo调用失败`);
-          },
-        })
+        // 看广告
+        app.play_ad(res.data,this.data.id);
       },
       fail: err => {
         tt.showToast({

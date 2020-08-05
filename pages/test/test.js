@@ -1,3 +1,4 @@
+const app = getApp();
 import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
@@ -10,6 +11,7 @@ Page({
     description:"",
     inputValue:"",
     _sex:'1',
+    isValue:false,
     recommend:[],
   },
   onLoad: function (option) {
@@ -64,7 +66,7 @@ Page({
     var testId = this.data.id;
     var testType = this.data.type; //类型 为1代表选择题类型 2为填空类型
     tt.navigateTo({
-      url: '../test/question/question?id='+ testId + '&type=' + testType,
+      url: '../question/question?id='+ testId + '&type=' + testType,
       success(res) {
         //console.log(`${res}`);
         console.log(`跳转成功`);
@@ -110,6 +112,15 @@ Page({
   },
   oninput: function (e) {
     console.log('input获取焦点事件，携带value值为：', e.detail.value);
+    if(app.isEmpty(e.detail.value)){ // 为空
+      this.setData({
+        isValue:false,
+      })
+    }else{ // 不为空
+      this.setData({
+        isValue:true,
+      })
+    }
   },
   onfocus: function (e) {
     //console.log(e);
@@ -117,8 +128,40 @@ Page({
   onblur: function (e) {
     tt.showToast({ title: "blur" });
   },
+  // 没填姓名
+  toDefault(){
+    tt.showToast({ 
+      icon:"fail",
+      title: "还未填写！" 
+    });
+  },
+  // 填了，去报告页面
   toReport:function(e){
     // 这个查询接口好像没有
     console.log("hhhh");
+    // 提交接口
+    this.commit();
+  },
+
+  // 提交答案
+  commit(){
+    var openid = tt.getStorageSync("openid");
+    http.questionCommitApi({ // 调用接口，传入参数
+      data:{
+        id:this.data.id,
+        open_id:openid,
+      },
+      success: res => {
+        console.log('提交答案接口请求成功', res);
+        // 看广告
+        app.play_ad(res.data,this.data.id);
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    })
   },
 })

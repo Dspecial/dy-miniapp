@@ -3,35 +3,17 @@ import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
     porfile:{
-      avatar_img:"../../images/avatar.png",
-      name:"片刻安静",
-      id:"77582558258"
     },
     mobile:"",
-    recordsList:[
-      {
-        id:"001",
-        createtime:"2020-07-11 18:00:00",
-        finished:0,
-        image:"../../images/avatar.png",
-        matter_name:"你在什么年龄容易发财",
-        brief:"别再说富人越富…",
-        allnum:"100万",
-      },
-      {
-        id:"001",
-        createtime:"2020-07-11 18:00:00",
-        finished:0,
-        image:"../../images/avatar.png",
-        matter_name:"你在什么年龄容易发财",
-        brief:"别再说富人越富…",
-        allnum:"100万",
-      },
-    ],
-    
+    recordsList: [], //放置返回数据的数组
+    isListEmpty: true,   // 用于判断recordsList数组是不是空数组，默认true，空的数组
+    pageNum: 1,   // 设置加载的第几次，默认是第一次
+    limit: 5,      //返回数据的个数
+    loading: false, //"上拉加载"的变量，默认false，隐藏
+    loadingComplete: false,  //“没有数据”的变量，默认false，隐藏
   },
   onLoad: function () {
-    console.log(app.globalData.userInfo,'userInfo');
+    //console.log(app.globalData.userInfo,'userInfo'); // 这也可以获取头像和姓名,只是没有id
     this.getProfile();
     this.getMobile();
     this.getRecordList();
@@ -45,7 +27,6 @@ Page({
         open_id:openid,
       },
       success: res => {
-        //console.log(res,'用户信息')
         this.setData({
           porfile: res.data
         })
@@ -97,20 +78,33 @@ Page({
     http.recordListApi({
       data:{
         open_id:openid,
-        page:1,
+        page:this.data.pageNum,
       },
       success: res => {
         //console.log(res,'测评记录');
-        var list = res.data.data;
-        var array = [];
-        list.map((item,index)=>{
-          array.push(
-            Object.assign(item,{finished:0})
-          )
-        });
-        this.setData({
-          recordsList: list
-        })
+        if(res.data.data.length != 0){
+          let searchList = [];
+          //如果isListEmpty是true从data中取出数据，否则先从原来的数据继续添加
+          this.data.isListEmpty ? searchList = res.data.data : searchList = this.data.recordsList.concat(res.data.data)
+          this.setData({
+            limit:res.data.per_page,
+            recordsList: searchList, //获取数据数组
+            loading: true   //把"上拉加载"的变量设为false，显示
+          });
+          if(res.data.data.length < this.data.limit){
+            this.setData({
+              loadingComplete: true, //把“没有数据”设为true，显示
+              loading: false  //把"上拉加载"的变量设为false，隐藏
+            });
+          }
+          //没有数据了，把“没有数据”显示，把“上拉加载”隐藏
+        }else{
+          this.setData({
+            loadingComplete: true, //把“没有数据”设为true，显示
+            loading: false  //把"上拉加载"的变量设为false，隐藏
+          });
+        }
+
       },
       fail: err => {
         tt.showToast({
@@ -120,30 +114,48 @@ Page({
       }
     });
   },
+  
+  // 上拉加载
+  onReachBottom () {
+    if(this.data.loading && !this.data.loadingComplete){
+      this.setData({
+        pageNum: this.data.pageNum+1,  //每次触发上拉事件，把pageNum+1
+        isListEmpty: false  //触发到上拉事件，把isListEmpty设为为false
+      });
+      tt.showLoading({
+        title: 'loading...',
+        icon: 'loading'
+      })
+      setTimeout(() => {
+        this.stopPullDownRefresh();
+        this.getRecordList();
+      }, 2000);
+    }
+  },
+
   // 查看报告
   viewReport(e){
-    var item = e.currentTarget.dataset.binditem;  //获取自定义的内容下标值
-    tt.navigateTo({
-      url: '../report/report?id='+item.id,
-      success(res) {
-        //console.log(`${res}`);
-        console.log(`跳转成功`);
-      },
-      fail(res) {
-        console.log(`navigateTo调用失败`);
-      },
-    })
-    console.log("查看报告");
+    var item = e.currentTarget.dataset.binditem;  //报告的id
+    // 看广告
+    app.play_ad(item.id,item.mid);
   },
+
   // 删除报告 
   delReport(e){
     var index = e.currentTarget.dataset.index;  //获取自定义的内容下标值
+    console.log(index);
     var _this = this;
     tt.showModal({        
       content: '是否确定删除内容？',
       success: function (res) {
-        if (res.confirm) {//点击确定后          
-          _this.getDelReport(index);
+        if (res.confirm) {//点击确定后
+          tt.showLoading({
+            title: '删除中...',
+            icon: 'loading'
+          })
+          setTimeout(() => {
+            _this.getDelReport(index);
+          }, 2000);
         }
       }
     })
@@ -157,7 +169,16 @@ Page({
       },
       success: res => {
         console.log(res,'删除成功');
-        _this.getRecordList();
+        var list = _this.data.recordsList;
+        //找到要删除的订单id的index
+        list.map(function(item,index){
+          if (item.id == id ){
+            list.splice(index, 1);
+          }
+        })
+        _this.setData({
+          recordsList: list//更新
+        })
       },
       fail: err => {
         tt.showToast({
@@ -167,6 +188,7 @@ Page({
       }
     });
   },
+
   // 下拉刷新
   onPullDownRefresh: function () {
     tt.showLoading({
@@ -174,6 +196,7 @@ Page({
       icon: 'loading'
     })
     setTimeout(() => {
+      this.onLoad();
       this.stopPullDownRefresh();
     }, 3000);
   },
@@ -184,15 +207,4 @@ Page({
       }
     })
   },
-  // 上拉加载
-  // onReachBottom () {
-  //   tt.showLoading({
-  //     title: 'loading...',
-  //     icon: 'loading'
-  //   })
-  //   setTimeout(() => {
-  //     this.stopPullDownRefresh();
-  //   }, 3000);
-  // },
-
 })

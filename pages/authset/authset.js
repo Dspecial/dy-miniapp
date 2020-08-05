@@ -8,40 +8,52 @@ Page({
     this.login();
   },
   login(){
-    var that = this
+    var that = this;
     tt.login({
-      success(res2) {
+      success(login_res) {
         tt.request({
           url: 'http://dy.weilaixxjs.cn/api/bytdance/auth/dylogin', // 目标服务器url
+          header: {
+            'content-type': 'application/json',
+            'token': "dd3e2f22a9e9f2dcf14c32628268963b", // token先写死
+          },
           data:{
-            code:res2.code,
-            xiaochengxu_id:1
+            code:login_res.code,
+            xiaochengxu_id:1,
           },
           success: (res) => {
-            tt.setStorageSync("openid", res.data.data.openid); // 存到本地openid
             that.getinfo(res.data.data.session_key);
           }
         });
       },
-      fail(res) {
-        console.log(`login调用失败`);
+      fail(login_res) {
+        console.log('login调用失败');
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
       }
     });
   },
   getinfo(sessionkey){
     var _this = this;
     tt.getUserInfo({
-      success(res) {
+      success(info_res) {
         //console.log('getinfo调用成功',res);
         tt.request({
           url: 'http://dy.weilaixxjs.cn/api/bytdance/auth/dyinfo', // 目标服务器url
+          header: {
+            'content-type': 'application/json',
+            'token': "dd3e2f22a9e9f2dcf14c32628268963b", // token先写死
+          },
           data:{
-            encryptedData:res.encryptedData,
-            iv:res.iv,
+            encryptedData:info_res.encryptedData,
+            iv:info_res.iv,
             sessionKey:sessionkey,
             xiaochengxu_id:1
           },
           success: (res) => {
+            tt.setStorageSync("openid", res.data.data); // 存到本地openid
             tt.reLaunch({
               url: '../index/index',
               success(res) {

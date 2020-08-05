@@ -642,6 +642,10 @@
   background-color: #14D47C!important;
   color: #fff!important;
 }
+.bg-default{
+  background-color: #ccc;
+  color: #fff!important;
+}
 .p-relative{
   position: relative;
 }

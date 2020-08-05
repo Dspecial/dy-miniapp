@@ -2,10 +2,10 @@
   <!-- 个人信息 -->
   <view class="page-section">
     <view class="d-flex align-items-center">
-      <image src="{{porfile.avatar_img}}" mode="aspectFill" class="avatar_img"/>
+      <image src="{{porfile.avatar}}" mode="aspectFill" class="avatar_img"/>
       <view class="ml-3">
-        <p class="fs_17 font-weight-normal d-block mb-1">{{porfile.name}}</p>
-        <span class="opacity-60 fs_17 font-weight-normal d-block">ID:{{porfile.id}}</span>
+        <p class="fs_17 font-weight-normal d-block mb-1">{{porfile.bytdance_name}}</p>
+        <span class="opacity-60 fs_17 font-weight-normal d-block">ID:{{porfile.fans_id}}</span>
       </view>
     </view>
 
@@ -19,13 +19,13 @@
   <!-- 测评记录 -->
   <view class="page-section mt-5">
     <view class="fs_18 font-weight-normal">测评记录</view>
-    <view class="records_parent mt-3">
+    <view class="records_parent mt-3"> 
       <block tt:for="{{recordsList}}">
         <view class="records_cell p-3 mb-3">
           <p class="d-flex justify-content-between">
             <span>创建时间：{{item.createtime}}</span>
-            <span tt:if="{{item.finished == 0}}" class="text-primary">已完成</span>
             <span tt:if="{{item.finished == 1}}" class="text-danger">未完成</span>
+            <span tt:else class="text-primary">已完成</span>
           </p>
           <view class="d-flex justify-content-between mt-3">
             <image src="{{item.image}}"  mode="aspectFill" class="item_img"/>
@@ -41,7 +41,11 @@
           </view>
         </view>
       </block>
-
+      <view class="loading text-center" hidden="{{!loading}}">正在载入更多...</view>  
+      <view class="loading text-center" hidden="{{!loadingComplete}}">
+        —————已加载全部—————
+        <view class="mt-3">—————— · ——————</view>
+      </view>  
     </view>
   </view>
 

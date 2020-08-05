@@ -6,7 +6,7 @@
     "pages/record/record",
     "pages/search/search",
     "pages/test/test",
-    "pages/test/question/question",
+    "pages/question/question",
     "pages/report/report"
   ],
   "window":{

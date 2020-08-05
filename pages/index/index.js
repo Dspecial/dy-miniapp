@@ -20,21 +20,21 @@ Page({
         childrenItem:[
           {
             id:"001",
-            img:"../../images/index_chosen.png",
-            title:"你的情商有多高？你的情商有多高？",
-            personNum:"1000万",
+            image:"../../images/index_chosen.png",
+            matter_name:"你的情商有多高？你的情商有多高？",
+            allnum:"1000万",
           },
           {
             id:"002",
-            img:"../../images/index_chosen.png",
-            title:"你的EQ有多高？",
-            personNum:"20万",
+            image:"../../images/index_chosen.png",
+            matter_name:"你的EQ有多高？",
+            allnum:"20万",
           },
           {
             id:"003",
-            img:"../../images/index_chosen.png",
-            title:"测测吧？",
-            personNum:"20万",
+            image:"../../images/index_chosen.png",
+            matter_name:"测测吧？",
+            allnum:"20万",
           },
         ],
       },
@@ -42,21 +42,7 @@ Page({
         groupName:"B",
         id:"2",
         childrenItem:[
-          {
-            img:"../../images/index_recommend.png",
-            title:"你在什么年龄容易发财？你在什么年龄容易发财？",
-            personNum:"1000万",
-          },
-          {
-            img:"../../images/index_recommend.png",
-            title:"你的EQ有多高？",
-            personNum:"20万",
-          },
-          {
-            img:"../../images/index_chosen.png",
-            title:"测测吧？",
-            personNum:"20万",
-          },
+
         ],
       }
     ],
@@ -65,6 +51,7 @@ Page({
   onLoad: function () {
     this.getindexBanner();
     this.getindexCate();
+    this.getToday();
     this.getindexRecommend();
   },
   // 请求banner接口
@@ -76,13 +63,12 @@ Page({
         })
       },
       fail: err => {
-        console.log(err)
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
       }
     })
-  },
-  // banner点击事件
-  bannerTap(){
-
   },
 
   // 请求首页测试分类接口
@@ -94,7 +80,10 @@ Page({
         })
       },
       fail: err => {
-        console.log(err)
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
       }
     })
   },
@@ -111,6 +100,23 @@ Page({
         console.log(`navigateTo调用失败`);
       },
     })
+  },
+  // 请求今日精选
+  getToday(){
+    http.indexTodayApi({
+      success: res => {
+        this.setData({
+          'today_chosen[0].childrenItem': res.data.arr1,
+          'today_chosen[1].childrenItem': res.data.arr2,
+        })
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    });
   },
 
   // 请求首页推荐接口
@@ -134,7 +140,6 @@ Page({
     tt.navigateTo({
       url: '../search/search',
       success(res) {
-        //console.log(`${res}`);
         console.log(`跳转成功`);
       },
       fail(res) {
@@ -161,7 +166,7 @@ Page({
             },
           })
         } else if (res.cancel) {
-          console.log("cancel, cold");
+          console.log("取消跳转");
         } else {
           // what happend?
         }
@@ -175,6 +180,7 @@ Page({
   // 列表图片加载失败
   errImg(e){
     var _errImg = e.target.dataset.errImg;
+    console.log(_errImg);
     var _objImg = "'"+_errImg+"'";
     var _errObj = {};
     _errObj[_errImg]="../../images/imgError.png";
