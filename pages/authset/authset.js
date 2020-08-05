@@ -7,6 +7,7 @@ Page({
     console.log("用户授权");
     this.login();
   },
+  // 初次授权，加密
   login(){
     var that = this;
     tt.login({
@@ -35,6 +36,7 @@ Page({
       }
     });
   },
+  // 拿到用户信息，解密
   getinfo(sessionkey){
     var _this = this;
     tt.getUserInfo({

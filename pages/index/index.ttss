@@ -55,3 +55,32 @@
 .today_item{
   min-height:120rpx;
 }
+
+/* 授权 */
+#app{
+  height: 100%;
+}
+.auth_bg{
+  width: 100%;
+  height: 1110rpx;
+}
+.btn_view{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 240rpx;
+  background: #fff;
+}
+.auth_btn{
+  border-radius:30rpx;
+  margin: 0;
+  position: absolute;
+  left: 100rpx;
+  right: 100rpx;
+  top: 50%;
+  transform: translate(0,-50%);
+}
+.auth_btn:after{
+  border:0
+}

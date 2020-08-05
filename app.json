@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/authset/authset",
     "pages/index/index",
     "pages/category/category",
     "pages/record/record",

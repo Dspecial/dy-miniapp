@@ -23,20 +23,8 @@ Page({
             image:"../../images/index_chosen.png",
             matter_name:"你的情商有多高？你的情商有多高？",
             allnum:"1000万",
-          },
-          {
-            id:"002",
-            image:"../../images/index_chosen.png",
-            matter_name:"你的EQ有多高？",
-            allnum:"20万",
-          },
-          {
-            id:"003",
-            image:"../../images/index_chosen.png",
-            matter_name:"测测吧？",
-            allnum:"20万",
-          },
-        ],
+          }
+        ]
       },
       {
         groupName:"B",
@@ -47,13 +35,128 @@ Page({
       }
     ],
     recommend:[],
+    loginStatus:true, // 授权
   },
   onLoad: function () {
+    // 授权
+    this.login();
+    // 页面
     this.getindexBanner();
     this.getindexCate();
     this.getToday();
     this.getindexRecommend();
   },
+
+  // 初次授权，加密
+  login(){
+    var that = this;
+    tt.login({
+      success(login_res) {
+        tt.request({
+          url: 'http://dy.weilaixxjs.cn/api/bytdance/auth/dylogin', // 目标服务器url
+          header: {
+            'content-type': 'application/json',
+            'token': "dd3e2f22a9e9f2dcf14c32628268963b", // token先写死
+          },
+          data:{
+            code:login_res.code,
+            xiaochengxu_id:1,
+          },
+          success: (res) => {
+            that.getinfo(res.data.data.session_key);
+          }
+        });
+      },
+      fail(login_res) {
+        console.log('login调用失败');
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    });
+  },
+  // 拿到用户信息，解密
+  getinfo(sessionkey){
+    var _this = this;
+    tt.getUserInfo({
+      success(info_res) {
+        //console.log('getinfo调用成功',res);
+        tt.request({
+          url: 'http://dy.weilaixxjs.cn/api/bytdance/auth/dyinfo', // 目标服务器url
+          header: {
+            'content-type': 'application/json',
+            'token': "dd3e2f22a9e9f2dcf14c32628268963b", // token先写死
+          },
+          data:{
+            encryptedData:info_res.encryptedData,
+            iv:info_res.iv,
+            sessionKey:sessionkey,
+            xiaochengxu_id:1
+          },
+          success: (res) => {
+            // 展示tabbar
+            tt.showTabBar({
+              animation: true,
+            });
+            tt.setStorageSync("openid", res.data.data); // 存到本地openid
+          }
+        });
+      },
+      fail(info_res) {
+        console.log('调用失败',info_res);
+        _this.setData({
+          loginStatus: false,
+        });
+        // 隐藏tabbar
+        tt.hideTabBar({
+          animation: true,
+        });
+        tt.showToast({
+          title: "您拒绝了授权,无法访问您的用户数据",
+          icon:"none",
+          duration: 2000,
+        });
+      },
+      withCredentials:true
+    });
+  },
+  // 重新授权
+  reAuth(){
+    var _this = this;
+    if(!this.data.loginStatus){
+      tt.openSetting({
+        success: function (open_res) {
+          if(open_res) {
+            if (open_res.authSetting["scope.userInfo"] == true) {
+              _this.setData({
+                loginStatus: true,
+              });
+              tt.getUserInfo({
+                withCredentials: true,
+                success: function (info_res) {
+                  // 展示tabbar
+                  tt.showTabBar({
+                    //animation: true,
+                  });
+                  //console.info(info_res.userInfo);
+                },
+                fail: function () {
+                  console.info("授权失败返回数据");
+                }
+              });
+            }
+          }
+        },
+        fail: function () {
+          console.info("设置失败返回数据");
+        }
+      });
+    }else{
+      this.login();
+    }
+  },
+
   // 请求banner接口
   getindexBanner(){
     http.indexBannerApi({ // 调用接口，传入参数
