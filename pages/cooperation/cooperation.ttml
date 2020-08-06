@@ -1,0 +1,31 @@
+<view class="page-container co-container p-3">
+  <form catchsubmit="formSubmit" catchreset="formReset">
+    <view class="page-section mb-3">
+      <view class="fs_14">短视频账号/名字</view>
+      <view class="input-block">
+        <input class="fs_16 pt-2 pb-2" name="name" placeholder="请填写您的短视频账号/名字" value='{{form_info}}'/>
+      </view>
+    </view>  
+    <view class="page-section mb-3">
+      <view class="fs_14">粉丝数量</view>
+      <view class="input-block">
+        <input class="fs_16 pt-2 pb-2" name="fans_number" placeholder="请填写您的粉丝数量如：66万" value='{{form_info}}' />
+      </view>
+    </view> 
+    <view class="page-section mb-3">
+      <view class="fs_14">姓名</view>
+      <view class="input-block">
+        <input class="fs_16 pt-2 pb-2" name="u_name" placeholder="请填写您的姓名" value='{{form_info}}'/>
+      </view>
+    </view> 
+    <view class="page-section mb-3">
+      <view class="fs_14">联系方式</view>
+      <view class="input-block">
+        <input class="fs_16 pt-2 pb-2" name="contact_method" placeholder="请填写您的手机号/微信" value='{{form_info}}'/>
+      </view>
+    </view> 
+    <view class="button-block">
+      <button type="primary" formType="submit" class="bg-success fs_15">确认提交</button>
+    </view>
+  </form>
+</view>

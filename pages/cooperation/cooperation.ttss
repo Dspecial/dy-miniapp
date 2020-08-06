@@ -1,0 +1,16 @@
+.input-block input{
+  border-bottom:1px solid #ccc;
+}
+.button-block{
+  position: fixed;
+  left: 30rpx;
+  right: 30rpx;
+  bottom:30rpx;
+}
+.button-block button{
+  border-radius:40rpx;
+  margin: 0 auto;
+}
+.button-block button:after{
+  border:0;
+}

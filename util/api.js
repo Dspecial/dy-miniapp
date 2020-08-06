@@ -60,11 +60,20 @@ function reportApi(params) { // 测评详情
 function delreportApi(params) { // 删除报告
   http('/api/bytdance/items/record_delete', 'POST', params)
 }
+function cooperationApi(params) { // 搜索测评
+  http('/api/bytdance/items/apply_cooperation', 'POST', params)
+}
 /**
  * 广告记录
  */
 function advApi(params) { // 删除报告
   http('/api/bytdance/commission/expenses', 'POST', params)
+}
+/**
+ * 搜索
+ */
+function searchApi(params) { // 搜索测评
+  http('/api/bytdance/items/search', 'POST', params)
 }
 
 export default { // 暴露接口
@@ -85,4 +94,7 @@ export default { // 暴露接口
   recordListApi,
   reportApi,
   delreportApi,
+  cooperationApi,
+
+  searchApi,
 }

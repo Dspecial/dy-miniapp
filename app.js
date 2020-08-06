@@ -30,7 +30,7 @@ App({
         }else{
           // 未授权，跳转到授权页面
           tt.reLaunch({
-            url: '/pages/auth/auth',
+            url: '/pages/authset/authset',
           })
         }
       }

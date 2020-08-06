@@ -6,7 +6,9 @@
     "pages/search/search",
     "pages/test/test",
     "pages/question/question",
-    "pages/report/report"
+    "pages/report/report",
+    "pages/cooperation/cooperation",
+    "pages/authset/authset"
   ],
   "window":{
     "backgroundTextStyle":"light",

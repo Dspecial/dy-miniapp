@@ -59,6 +59,18 @@ Page({
   linkTo(){
     console.log("点啦");
   },
+  // 跳转到商务合作页面
+  linkToCooperation(){
+    tt.navigateTo({
+      url: '../cooperation/cooperation',
+      success(res) {
+        console.log(`跳转成功`);
+      },
+      fail(res) {
+        console.log(`navigateTo调用失败`);
+      },
+    })
+  },
   // 电话客服
   makePhoneCallTap (){
     tt.makePhoneCall({
