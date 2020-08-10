@@ -5,16 +5,23 @@
     <view class="fs_15 font-weight-normal mt-3 text-primary">{{details.allnum}}人在测</view>
     <view class="hr"></view>
     <view class="fs_13 font-weight-normal">测试结果：</view>
-    <view class="text-success fs_20 font-weight-semibold mt-3">
-      {{details.title}}
+    
+    <view class="" tt:if="{{isNotVideoOver}}">
+      <button class="fs_15 bg-success mt-5 mb-4 play_btn" bindtap="askPlay"><icon class="iconfont fs_18 icon-video-l mr-2" />看广告免费查看结果</button>
     </view>
-    <view class="fs_13 font-weight-normal mt-5">详细分析：</view>
-    <view class="fs_13 opacity-60 mt-3">
-      <rich-text nodes="{{details.content}}"></rich-text>
-    </view>
-    <view class="mt-5 d-flex justify-content-between">
-      <button class="fs_15 share_btn" bindtap="onShareAppMessage" data-name="shareBtn" open-type="share">分享好友 </button>
-      <button class="fs_15 video_btn bg-success" bindtap="videoTap">拍个视频 </button>
+
+    <view tt:else>
+      <view class="text-success fs_20 font-weight-semibold mt-3">
+        {{details.title}}
+      </view>
+      <view class="fs_13 font-weight-normal mt-5">详细分析：</view>
+      <view class="fs_13 opacity-60 mt-3">
+        <rich-text nodes="{{details.content}}"></rich-text>
+      </view>
+      <view class="mt-5 d-flex justify-content-between">
+        <button class="fs_15 share_btn" bindtap="onShareAppMessage" data-name="shareBtn" open-type="share">分享好友 </button>
+        <!-- <button class="fs_15 video_btn bg-success" bindtap="videoTap">拍个视频 </button> -->
+      </view>
     </view>
   </view>
 

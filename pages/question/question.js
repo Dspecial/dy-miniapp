@@ -9,16 +9,6 @@ Page({
     totalScore:0,
     personNum:"100万",
     questionList: [
-      // {
-      //   type:'1',
-      //   question:"你何时会感受到痛苦?",
-      //   se:[
-      //     { value: "A", val:"5",name: "不会",checked:false,score:"1"},
-      //     { value: "B", val:"10",name: "偶尔",checked:false},
-      //     { value: "C", val:"15",name: "经常",checked:false },
-      //     { value: "D", val:"20",name: "总是",checked:false }
-      //   ],
-      // },
     ],
   },
   onLoad: function (option) {
@@ -195,8 +185,16 @@ Page({
       },
       success: res => {
         console.log('提交答案接口请求成功', res);
-        // 看广告
-        app.play_ad(res.data,this.data.id);
+        tt.navigateTo({
+          url: '../report/report?id='+res.data,
+          success(res) {
+            //console.log(`${res}`);
+            console.log(`跳转成功`);
+          },
+          fail(res) {
+            console.log(`navigateTo调用失败`);
+          },
+        });
       },
       fail: err => {
         tt.showToast({

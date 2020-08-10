@@ -153,9 +153,16 @@ Page({
         open_id:openid,
       },
       success: res => {
-        console.log('提交答案接口请求成功', res.data,this.data.id);
-        // 看广告
-        //app.play_ad(res.data,this.data.id);
+        tt.navigateTo({
+          url: '../report/report?id='+res.data,
+          success(res) {
+            //console.log(`${res}`);
+            console.log(`跳转成功`);
+          },
+          fail(res) {
+            console.log(`navigateTo调用失败`);
+          },
+        });
       },
       fail: err => {
         tt.showToast({

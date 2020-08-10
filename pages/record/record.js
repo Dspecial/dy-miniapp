@@ -148,8 +148,17 @@ Page({
   // 查看报告
   viewReport(e){
     var item = e.currentTarget.dataset.binditem;  //报告的id
-    // 看广告
-    app.play_ad(item.id,item.mid);
+    
+    tt.navigateTo({
+      url: '../report/report?id='+item.id,
+      success(res) {
+        //console.log(`${res}`);
+        console.log(`跳转成功`);
+      },
+      fail(res) {
+        console.log(`navigateTo调用失败`);
+      },
+    });
   },
 
   // 删除报告 

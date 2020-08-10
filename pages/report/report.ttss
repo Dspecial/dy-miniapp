@@ -16,3 +16,8 @@
   border:2rpx solid rgba(28,209,123,1);
   color: #19D07A;
 }
+.play_btn{
+  width: 75%!important;
+  margin-left:auto!important;
+  margin-right: auto!important;
+}

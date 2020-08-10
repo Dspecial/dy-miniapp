@@ -13,7 +13,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "心理测试",
+    "navigationBarTitleText": "趣推测评",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {

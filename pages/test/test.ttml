@@ -23,7 +23,7 @@
             <view class="w-50 fs_17 text-center item {{_sex==1?'active':''}}" bindtap="radioChange" data-num="1">男</view>
             <view class="w-50 fs_17 text-center item {{_sex==2?'active':''}}" bindtap="radioChange" data-num="2">女</view>
           </view> -->
-          <input class="page-input fs_16 pt-2 pb-2" 
+          <input class="page-input fs_16 pt-1 pb-1" 
             focus="true"
             placeholder="{{placeholder}}" 
             value="{{inputValue}}" 
