@@ -9,8 +9,8 @@
       </view>
     </view>
 
-    <view class="mt-3 d-flex justify-content-between">
-      <button bindtap="linkTo" class="links_btn fs_13"><icon class="iconfont fs_12 icon-edit" /> 意见反馈 </button>
+    <view class="mt-3 d-flex justify-content-around">
+      <!-- <button bindtap="linkTo" class="links_btn fs_13"><icon class="iconfont fs_12 icon-edit" /> 意见反馈 </button> -->
       <button bindtap="makePhoneCallTap" class="links_btn fs_13"><icon class="iconfont fs_12 icon-tel" /> 电话客服 </button>
       <button bindtap="linkToCooperation" class="links_btn fs_13"><icon class="iconfont fs_12 icon-hezuo" /> 商务合作 </button>
     </view>

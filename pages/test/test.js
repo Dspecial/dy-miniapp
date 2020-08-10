@@ -15,6 +15,9 @@ Page({
     recommend:[],
   },
   onLoad: function (option) {
+    if(option.spread_code && option.spread_code != undefined){
+        tt.setStorageSync('spread_code', option.spread_code);
+    }
     this.setData({
       id:option.id,// 拿到测试题型的id
     })
@@ -36,6 +39,7 @@ Page({
           personNum:info.number,
           description:info.brief,
           recommend:recommendList,
+          placeholder:info.matter_title
         })
       },
       fail: err => {
@@ -149,9 +153,9 @@ Page({
         open_id:openid,
       },
       success: res => {
-        //console.log('提交答案接口请求成功', res);
+        console.log('提交答案接口请求成功', res.data,this.data.id);
         // 看广告
-        app.play_ad(res.data,this.data.id);
+        //app.play_ad(res.data,this.data.id);
       },
       fail: err => {
         tt.showToast({

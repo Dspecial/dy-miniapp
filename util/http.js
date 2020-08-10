@@ -1,5 +1,5 @@
 // 备案的域名信息
-var host = "http://dy.weilaixxjs.cn";
+var host = "https://dy.weilaixxjs.cn";
 
 module.exports = {
   http(url, method, params) {

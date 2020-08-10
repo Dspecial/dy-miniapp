@@ -25,7 +25,7 @@
           </view> -->
           <input class="page-input fs_16 pt-2 pb-2" 
             focus="true"
-            placeholder="请输入" 
+            placeholder="{{placeholder}}" 
             value="{{inputValue}}" 
             bindinput="oninput" 
             bindfocus="onfocus"

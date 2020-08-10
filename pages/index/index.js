@@ -37,7 +37,10 @@ Page({
     recommend:[],
     loginStatus:true, // 授权
   },
-  onLoad: function () {
+  onLoad: function (option) {
+    if(option.spread_code && option.spread_code != undefined){
+        tt.setStorageSync('spread_code', option.spread_code);
+    }
     // 授权
     this.login();
     // 页面

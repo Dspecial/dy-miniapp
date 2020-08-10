@@ -136,7 +136,7 @@ App({
     var openid = tt.getStorageSync("openid");
     http.porfileApi({
       data:{
-        spread_code:'2007272203045460',// 先写死
+        spread_code:tt.getStorageSync('spread_code'),// 先写死
         open_id:openid,
         item_id:itemId,
       },
