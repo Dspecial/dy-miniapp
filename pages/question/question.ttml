@@ -51,6 +51,6 @@
       <button bindtap="nextSubmit" tt:else>下一题</button>
     </view>
 
-    <view bindtap="outTest" class="out_btn mt-3">退出答题</view>
+    <!-- <view bindtap="outTest" class="out_btn mt-3">退出答题</view> -->
   </view>
 </view>

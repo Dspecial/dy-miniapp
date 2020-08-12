@@ -62,7 +62,7 @@
 }
 .auth_bg{
   width: 100%;
-  height: 1110rpx;
+  height: 99%;
 }
 .btn_view{
   position: absolute;

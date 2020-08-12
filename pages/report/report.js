@@ -7,6 +7,7 @@ Page({
     details:{
     },
     isNotVideoOver:true, // 默认没看完广告
+    isVersion:true,// true：版本足够；false:版本过低
     videoAd:"",
     'is_end':0, //初始化广告播放状态
     video:'',
@@ -18,7 +19,62 @@ Page({
       id:option.id,// 拿到报告的id
     })
     this.getReport(this.data.id);
+    var _this = this;
+    tt.getSystemInfo({
+      success(res) {
+        var version = res.system.split(" ")[1];
+        if(res.appName == 'Douyin' || res.appName == 'devtools'){ // 只有抖音可以播放广告
+          if(res.platform == 'android' && _this.judgeVersion(version,'10.3')){ // 只有安卓10.3以上才能播放广告
+            _this.setData({
+              isNotVideoOver:true,// 默认没看完广告
+              isVersion:true,// 版本足够
+            })
+          }else if(res.platform == 'ios' && _this.judgeVersion(version,'10.7')){ // 只有ios10.7以上才能播放广告
+            _this.setData({
+              isNotVideoOver:true,// 默认没看完广告
+              isVersion:true,// 版本足够
+            })
+          }else{
+            _this.setData({
+              isNotVideoOver:true,// 默认没看完广告
+              isVersion:false,// 版本过低
+            })
+          }
+        }else{
+          _this.setData({
+            isNotVideoOver:false,// 其他宿主不看广告
+          })
+        }
+      },
+    });
   },
+
+  // 判断版本号
+  judgeVersion:function(curV, reqV) {
+    var arr1 = curV.toString().split('.');
+    var arr2 = reqV.toString().split('.');
+    //将两个版本号拆成数字
+    var minL = Math.min(arr1.length, arr2.length);
+    var pos = 0; //当前比较位
+    var diff = 0; //当前为位比较是否相等
+    var flag = false;
+    //逐个比较如果当前位相等则继续比较下一位
+    while(pos < minL) {
+      diff = parseInt(arr1[pos]) - parseInt(arr2[pos]);
+      if(diff == 0) {
+        pos++;
+        continue;
+      } else if(diff > 0) {
+        flag = true;
+        break;
+      } else {
+        flag = false;
+        break;
+      }
+    }
+    return flag;
+  },
+
   // 获取测评详细和推荐
   getReport(id){
     http.reportApi({
@@ -59,6 +115,26 @@ Page({
       success(res) {
         if (res.confirm) {
           _this.play_ad();
+        } else if (res.cancel) {
+          console.log("cancel, cold");
+        } else {
+          // what happend?
+        }
+      },
+      fail(res) {
+        console.log(`showModal调用失败`);
+      },
+    });
+  },
+  // 版本过低时
+  askPlay2(){
+    var _this = this;
+    tt.showModal({
+      title: "温馨提示",
+      content: "您的手机系统版本过低，升级系统后可免费查看结果！",
+      success(res) {
+        if (res.confirm) {
+          console.log("确认");
         } else if (res.cancel) {
           console.log("cancel, cold");
         } else {

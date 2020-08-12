@@ -39,7 +39,7 @@ Page({
   },
   onLoad: function (option) {
     if(option.spread_code && option.spread_code != undefined){
-        tt.setStorageSync('spread_code', option.spread_code);
+      tt.setStorageSync('spread_code', option.spread_code);
     }
     // 授权
     this.login();
