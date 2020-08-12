@@ -7,8 +7,7 @@
     <view class="fs_13 font-weight-normal">测试结果：</view>
     
     <view class="" tt:if="{{isNotVideoOver}}">
-      <button class="fs_15 bg-success mt-5 mb-4 play_btn" bindtap="askPlay" tt:if="{{isVersion}}"><icon class="iconfont fs_18 icon-video-l mr-2"/>看广告免费查看结果</button>
-      <button class="fs_15 bg-danger mt-5 mb-4 play_btn" bindtap="askPlay2" tt:else><icon class="iconfont fs_18 icon-video-l mr-2"/>看广告免费查看结果</button>  
+      <button class="fs_15 bg-success mt-5 mb-4 play_btn" bindtap="askPlay"><icon class="iconfont fs_18 icon-video-l mr-2"/>看广告免费查看结果</button>
     </view>
 
     <view tt:else>

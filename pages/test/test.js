@@ -16,7 +16,7 @@ Page({
   },
   onLoad: function (option) {
     if(option.spread_code && option.spread_code != undefined){
-        tt.setStorageSync('spread_code', option.spread_code);
+      tt.setStorageSync('spread_code', option.spread_code);
     }
     this.setData({
       id:option.id,// 拿到测试题型的id

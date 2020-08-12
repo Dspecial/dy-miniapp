@@ -1,7 +1,7 @@
 <view class="h-100 auth-container">
   <view class="h-100">
     <image src="../../images/auth_bg.png" mode="aspectFit" class="auth_bg"/>
-    <view class="btn_view" tt:if="{{!loginStatus}}">
+    <view class="btn_view">
       <button type="primary" class="auth_btn fs_14" bindtap="reAuth"> 授权登录</button>
     </view>
   </view>
