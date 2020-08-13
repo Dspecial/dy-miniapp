@@ -205,13 +205,13 @@ App({
         content: "即将进入测试",
         success(res) {
           if (res.confirm) {
-            tt.navigateTo({
+            tt.reLaunch({
               url: '../test/test?id='+id,
               success(res) {
                 console.log(`跳转成功`);
               },
               fail(res) {
-                console.log(`navigateTo调用失败`);
+                console.log(`reLaunch调用失败`);
               },
             })
           } else if (res.cancel) {

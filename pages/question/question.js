@@ -57,6 +57,10 @@ Page({
     // console.log(this.data.chooseValue,'单选选项');
     // 记住上一题的答案
     this.radioPreviousAnswer(e.detail.value);
+
+    setTimeout(() => {
+      this.nextSubmit(); // 选完答案，立即触发
+    },200);
   },
   /*
   * 单选记住上一题的答案
@@ -167,10 +171,10 @@ Page({
         totalScore:score
       });
       // 设置缓存
-      var logs = wx.getStorageSync('logs') || []
+      var logs = tt.getStorageSync('logs') || []
       let logsList = { "date": Date.now(), "testId": this.data.id, "score": this.data.totalScore }
       logs.unshift(logsList);
-      wx.setStorageSync('logs', logs);
+      tt.setStorageSync('logs', logs);
     }
   },
 

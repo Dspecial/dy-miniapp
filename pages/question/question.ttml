@@ -44,11 +44,11 @@
       </block>
     </view>
 
-      <!--按钮-->
+    <!--按钮-->
     <view class="ques_btn d-flex justify-content-around">
       <button bindtap="prevTap" tt:if="{{index != 0}}">上一题</button>
-      <button bindtap="nextSubmit" tt:if="{{index == questionList.length-1}}" class="bg-success">提交</button>
-      <button bindtap="nextSubmit" tt:else>下一题</button>
+      <!-- <button bindtap="nextSubmit" tt:if="{{index == questionList.length-1}}" class="bg-success">提交</button>
+      <button bindtap="nextSubmit" tt:else>下一题</button> -->
     </view>
 
     <!-- <view bindtap="outTest" class="out_btn mt-3">退出答题</view> -->
