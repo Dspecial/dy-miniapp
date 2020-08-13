@@ -8,7 +8,6 @@ App({
   onLaunch: function () {
     // 初次授权
     this.login();
-
     // 获取用户信息
     tt.getSetting({
       success: res => { 
@@ -39,7 +38,7 @@ App({
     tt.login({
       success(login_res) {
         tt.request({
-          url: 'http://dy.weilaixxjs.cn/api/bytdance/auth/dylogin', // 目标服务器url
+          url: 'https://dy.weilaixxjs.cn/api/bytdance/auth/dylogin', // 目标服务器url
           header: {
             'content-type': 'application/json',
             'token': "dd3e2f22a9e9f2dcf14c32628268963b", // token先写死
@@ -54,14 +53,16 @@ App({
         });
       },
       fail(login_res) {
-        console.log('login调用失败');
+        console.log(login_res,'login调用失败');
         tt.showToast({
-          title: err.msg,
+          icon:'fail',
+          title: login_res.errMsg,
           duration: 3000,
         });
       }
     });
   },
+  
   // 拿到用户信息，解密
   getinfo(sessionkey){
     var _this = this;
@@ -69,7 +70,7 @@ App({
       success(info_res) {
         //console.log('getinfo调用成功',res);
         tt.request({
-          url: 'http://dy.weilaixxjs.cn/api/bytdance/auth/dyinfo', // 目标服务器url
+          url: 'https://dy.weilaixxjs.cn/api/bytdance/auth/dyinfo', // 目标服务器url
           header: {
             'content-type': 'application/json',
             'token': "dd3e2f22a9e9f2dcf14c32628268963b", // token先写死
@@ -149,5 +150,81 @@ App({
     }else{
       return false;
     }
+  },
+  // 去测试页面
+  linkToTest(id){
+    var openid = tt.getStorageSync("openid");
+    var _this = this;
+    if(this.isEmpty(openid)){
+      tt.showModal({
+        title: "您拒绝了授权",
+        content: "授权您的用户数据后才能正常访问",
+        success(res) {
+          if (res.confirm) {
+            tt.openSetting({
+              success: function (open_res) {
+                if(open_res) {
+                  if (open_res.authSetting["scope.userInfo"] == true) {
+                    tt.getUserInfo({
+                      withCredentials: true,
+                      success: function (info_res) {
+                        _this.login();
+                      },
+                      fail: function () {
+                        console.info("授权失败返回数据");
+                      }
+                    });
+                  }
+                }
+              },
+              fail: function () {
+                console.info("设置失败返回数据");
+              }
+            });
+          } else if (res.cancel) {
+            // tt.reLaunch({
+            //   url: '../authset/authset',// 去授权页面
+            //   success(res) {
+            //     console.log(`跳转成功`);
+            //   },
+            //   fail(res) {
+            //     console.log(`navigateTo调用失败`);
+            //   },
+            // })
+          } else {
+            // what happend?
+          }
+        },
+        fail(res) {
+          console.log(`showModal调用失败`);
+        },
+      });    
+    }else{
+      tt.showModal({
+        title: "提示",
+        content: "即将进入测试",
+        success(res) {
+          if (res.confirm) {
+            tt.navigateTo({
+              url: '../test/test?id='+id,
+              success(res) {
+                console.log(`跳转成功`);
+              },
+              fail(res) {
+                console.log(`navigateTo调用失败`);
+              },
+            })
+          } else if (res.cancel) {
+            console.log("取消跳转");
+          } else {
+            // what happend?
+          }
+        },
+        fail(res) {
+          console.log(`showModal调用失败`);
+        },
+      });
+    };
+
   },
 })

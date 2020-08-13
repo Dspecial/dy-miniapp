@@ -1,3 +1,4 @@
+const app = getApp();
 import http from '../../util/api' // 引入api接口管理文件
 Page({
   data: {
@@ -82,31 +83,7 @@ Page({
   // 去测试页面
   toTest:function(e){
     var item = e.currentTarget.dataset.binditem;
-    tt.showModal({
-      title: "提示",
-      content: "即将进入测试",
-      success(res) {
-        if (res.confirm) {
-          tt.navigateTo({
-            url: '../test/test?id='+item.id,
-            success(res) {
-              console.log('跳转成功');
-              //console.log(`${res}`);
-            },
-            fail(res) {
-              console.log(`navigateTo调用失败`);
-            },
-          })
-        } else if (res.cancel) {
-          // console.log("cancel, cold");
-        } else {
-          // what happend?
-        }
-      },
-      fail(res) {
-        console.log(`showModal调用失败`);
-      },
-    });
+    app.linkToTest(item.id);
   },
 
     // 下拉刷新
