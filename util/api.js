@@ -66,7 +66,7 @@ function cooperationApi(params) { // 搜索测评
 /**
  * 广告记录
  */
-function advApi(params) { // 删除报告
+function advApi(params) { // 广告记录
   http('/api/bytdance/commission/expenses', 'POST', params)
 }
 /**
@@ -96,5 +96,6 @@ export default { // 暴露接口
   delreportApi,
   cooperationApi,
 
+  advApi,
   searchApi,
 }

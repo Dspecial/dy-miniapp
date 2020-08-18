@@ -8,7 +8,7 @@ Page({
     },
     isNotVideoOver:true, // 默认没看完广告
     videoAd:"",
-    'is_end':0, //初始化广告播放状态
+    is_end:0, //初始化广告播放状态
     video:'',
     recommend:[
     ],
@@ -78,9 +78,9 @@ Page({
         id:id
       },
       success: res => {
-        //console.log(res,'测评报告')
+        console.log(res,'测评报告')
         this.setData({
-          itemID:res.data.mid,
+          itemID:res.data.details.mid,
           details: res.data.details,
           recommend:res.data.recommend_list,
         })
@@ -102,6 +102,7 @@ Page({
     _errObj[_errImg]="../../images/imgError.png";
     this.setData(_errObj);//注意这里的赋值方式...
   },
+  
   // 询问是否看广告，并告知佣金
   askPlay(){
     var _this = this;
@@ -151,7 +152,6 @@ Page({
     
     var that = this;
     this.data.videoAd.onClose(res => {
-      console.log(res,'广告');
       if (res.isEnded) {
         // 实现子子页面的closeAdFunction与cancelAdFunction方法
         if(that.data.is_end == 0){
@@ -173,6 +173,22 @@ Page({
       is_end:1,
       isNotVideoOver:false,
     });
+    http.advApi({
+      data:{
+        spread_code:tt.getStorageSync('spread_code'),
+        open_id:tt.getStorageSync("openid"),
+        item_id:this.data.itemID,
+      },
+      success: res => {
+        console.log(res,'看完广告获得佣金')
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
+    });
   },
 
   // 用户取消，没看完广告
@@ -186,11 +202,35 @@ Page({
       title: "看完广告拿到奖励，就可以看到测试报告了哦！",
       duration: 2000,
       success(res) {
-        console.log(`${res}`);
+        //console.log(`${res}`);
       },
       fail(res) {
         console.log(`showToast调用失败`);
       },
+    });
+    http.advApi({
+      data:{
+        spread_code:tt.getStorageSync('spread_code'),
+        open_id:tt.getStorageSync("openid"),
+        item_id:this.data.itemID,
+        is_end:3
+      },
+      success: res => {
+        if(res.code == 0){
+          console.log(res,'没看完广告，不能获得佣金')
+        }else{
+          tt.showToast({
+            title: res.msg,
+            duration: 3000,
+          });
+        }
+      },
+      fail: err => {
+        tt.showToast({
+          title: err.msg,
+          duration: 3000,
+        });
+      }
     });
   },
   
@@ -204,7 +244,14 @@ Page({
         item_id:this.data.itemID,
       },
       success: res => {
-        console.log("成功",res);
+        if(res.code == 0){
+          console.log("成功",res);
+        }else{
+          tt.showToast({
+            title: res.msg,
+            duration: 3000,
+          }); 
+        }
       },
       fail: err => {
         tt.showToast({

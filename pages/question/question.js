@@ -188,7 +188,7 @@ Page({
         score:score,
       },
       success: res => {
-        console.log('提交答案接口请求成功', res);
+        //console.log('提交答案接口请求成功', res);
         tt.navigateTo({
           url: '../report/report?id='+res.data,
           success(res) {
