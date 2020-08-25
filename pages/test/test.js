@@ -9,7 +9,7 @@ Page({
     title:"",
     personNum:"",
     description:"",
-    breif_text:"",
+    brief_text:"",
     inputValue:"",
     _sex:'1',
     isValue:false,
@@ -32,7 +32,6 @@ Page({
       },
       success: res => {
         var info = res.data.info;
-        console.log(info);
         var recommendList = res.data.recommend_list;
         this.setData({
           type:info.is_typedata,//类型 为1代表选择题类型 2为填空类型
@@ -40,7 +39,7 @@ Page({
           title:info.matter_name,
           personNum:info.number,
           description:info.brief,
-          breif_text:info.breif_text,
+          brief_text:info.brief_text,
           recommend:recommendList,
           placeholder:info.matter_title
         })

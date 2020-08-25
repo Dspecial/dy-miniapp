@@ -39,3 +39,12 @@
   border-radius: 60rpx;
   padding:0 30rpx;
 }
+.brief_text{
+  position: relative;
+  border-radius: 14rpx;
+  background-color:rgba(231,241,255,0.8);
+}
+.brief_text .title{
+  color: #40A9FF;
+  text-align: center;
+}

@@ -14,12 +14,10 @@
       <view class="font-weight-normal fs_15 mt-3 opacity-60">
         {{description}}
       </view>
-      <view class="font-weight-normal fs_15 mt-3 opacity-60">
-        {{breif_text}}
-      </view>
       <view class="mt-4 w-70 ml-auto mr-auto" tt:if="{{type == 1}}">
         <button bindtap="toQuestion" data-bindid="{{id}}" class="bg-success fs_15"> 开始测试 </button>
       </view>
+
       <view class="mt-4" tt:elif="{{type == 2}}">
         <view class="d-flex">
           <!-- <view class="my_radio d-flex align-items-center justify-content-between">
@@ -38,6 +36,11 @@
           <button tt:if="{{isValue}}" bindtap="toReport" data-bindid="{{id}}" class="bg-success fs_15"> 点此查询 </button>
           <button tt:else bindtap="toDefault" class="bg-default fs_15"> 点此查询 </button>
         </view>
+      </view>
+
+      <view class="mt-4 brief_text pl-3 pr-3 pt-2 pb-2">
+        <view class="title fs_15 font-weight-semibold">简介</view>
+        <rich-text nodes="{{brief_text}}"></rich-text>
       </view>
     </view>
   </view>
