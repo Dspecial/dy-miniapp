@@ -17,6 +17,10 @@
       </view>
     </view>
 
+    <!-- 图片 -->
+    <view class="mt-3" tt:if="{{questionList[index].image}}">
+      <image src="{{questionList[index].image}}" mode="aspectFit" data-err-img="questionList[{{index}}].image" binderror="errImg" class="question_img" />
+    </view>
     <!-- 选项 -->
     <view class="ques_content mt-3">
       <!-- 单选 -->

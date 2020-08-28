@@ -37,3 +37,6 @@
 .page-input{
   border-bottom:1px solid #D8D8D8;
 }
+.question_img{
+  width: 100%;
+}

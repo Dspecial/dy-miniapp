@@ -26,7 +26,7 @@ Page({
         id:id,
       },
       success: res => {
-        //console.log('问题列表接口请求成功', res);
+        // console.log('问题列表接口请求成功', res);
         var list = res.data.list;
         var array = [];
         list.map((item,index)=>{
@@ -47,7 +47,14 @@ Page({
       }
     })
   },
-  
+  // 列表图片加载失败
+  errImg(e){
+    var _errImg = e.target.dataset.errImg;
+    var _objImg = "'"+_errImg+"'";
+    var _errObj = {};
+    _errObj[_errImg]="../../images/imgError.png";
+    this.setData(_errObj);//注意这里的赋值方式...
+  },
    /*
   * 单选事件
   */
