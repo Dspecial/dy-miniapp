@@ -15,7 +15,7 @@
         {{details.title}}
       </view>
       <view class="fs_13 font-weight-normal mt-5">详细分析：</view>
-      <view class="fs_13 opacity-60 mt-3">
+      <view class="fs_13 opacity-60 mt-3 detail_content">
         <rich-text nodes="{{details.content}}"></rich-text>
       </view>
       <view class="mt-5 d-flex justify-content-between">
